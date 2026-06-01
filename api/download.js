@@ -1,15 +1,36 @@
-import redis from '../lib/redis';
+import redis from './_lib/redis.js';
 
 export default async function handler(req, res) {
-  const { transaction_id } = req.query;
-  const data = await redis.get(transaction_id);
-  if (!data) return res.status(404).send('Order not found');
+  const { code, type } = req.query;
 
-  const order = JSON.parse(data);
-  if (order.status !== 'completed') return res.status(403).send('Payment not completed');
+  if (!code || !type) {
+    return res.status(400).send('Missing code or type');
+  }
 
-  // Nội dung file config
-  const content = `# DNS V3 Config\nPackage: ${order.package_id}\nTransaction: ${transaction_id}`;
-  res.setHeader('Content-Disposition', `attachment; filename="dnsv3_${transaction_id}.conf"`);
-  res.send(content);
+  try {
+    // Kiểm tra mã giao dịch có hợp lệ không
+    const rawPurchase = await redis.get(`purchased:${code}`);
+    if (!rawPurchase) {
+      return res.status(403).send('Invalid or expired transaction code');
+    }
+
+    // TODO: Thay thế URL này bằng link thật đến file .mobileconfig của bạn
+    // Bạn có thể upload file lên GitHub và lấy link raw, hoặc dùng dịch vụ lưu trữ khác
+    const fileUrls = {
+      dns1: 'https://your-storage.com/config_dns1.mobileconfig',
+      dns2: 'https://your-storage.com/config_dns2.mobileconfig',
+      dns3: 'https://your-storage.com/config_dns3.mobileconfig'
+    };
+
+    const fileUrl = fileUrls[type];
+    if (!fileUrl) {
+      return res.status(404).send('Configuration file not found for this package');
+    }
+
+    // Chuyển hướng đến URL của file cấu hình
+    return res.redirect(fileUrl);
+  } catch (error) {
+    console.error('Lỗi khi tải file:', error);
+    return res.status(500).send('Internal server error');
+  }
 }

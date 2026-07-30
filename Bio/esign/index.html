@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Younj Sign | Tải Esign & Cert Apple Miễn Phí</title>
+    <meta name="description" content="Younj Sign - Tải file Esign IPA, cài đặt chứng chỉ Apple miễn phí, không revoke. Hỗ trợ ký IPA, chống thu hồi certificate, dành cho iOS 16-18.">
+    <meta name="keywords" content="tải Esign, cert Apple miễn phí, chứng chỉ iOS, ký IPA online, Esign IPA, chống revoke, Younj Sign, certificate iOS 2026">
+    <meta name="author" content="Younj Dev Team">
+    <link rel="canonical" href="https://younj.io.vn/">
+
+    <meta property="og:title" content="Younj Sign | Tải Esign & Cert Apple Miễn Phí">
+    <meta property="og:description" content="Tải ngay Esign IPA và chứng chỉ Apple miễn phí 2026. Hỗ trợ ký ứng dụng không cần jailbreak, chống thu hồi vĩnh viễn.">
+    <meta property="og:image" content="https://yourdomain.com/path-to-your-logo.png">
+    <meta property="og:url" content="https://younj.io.vn/">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-body: #050814;
+            --bg-card: #111727;
+            --bg-input: #0a0e1a;
+            --text-main: #ffffff;
+            --text-sub: #8b9bb4;
+            --neon-blue: #facc15;
+            --neon-yellow: #facc15;
+            --btn-blue: linear-gradient(90deg, #eab308, #facc15);
+            --btn-yellow: linear-gradient(90deg, #eab308, #facc15);
+            --btn-dark: #2a3143;
+            --border-line: rgba(255, 255, 255, 0.05);
+            --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --topbar-height: 32px;
+            --font-main: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-main);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            background-image:
+                radial-gradient(circle at top right, rgba(250, 204, 21, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at bottom left, rgba(250, 204, 21, 0.08) 0%, transparent 40%);
+            background-attachment: fixed;
+            padding-bottom: 50px;
+            overflow-x: hidden;
+            position: relative;
+            padding-top: var(--topbar-height);
+        }
+
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .top-bar {
+            background: linear-gradient(90deg, #b45309, #eab308, #b45309);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 6px 0;
+            text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(234, 179, 8, 0.3);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+        .top-bar.hidden {
+            transform: translateY(-100%);
+        }
+        .top-bar-text {
+            display: inline-block;
+            animation: marquee 15s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        #mainHeader {
+            position: fixed;
+            top: var(--topbar-height, 32px);
+            left: 0;
+            right: 0;
+            z-index: 99;
+            background: rgba(5, 8, 20, 0.75);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(250, 204, 21, 0.2);
+            padding: 12px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            animation: slideDownHeader 0.7s ease forwards;
+        }
+        #mainHeader.hidden {
+            transform: translateY(-120%);
+        }
+
+        @keyframes slideDownHeader {
+            from { opacity: 0; transform: translateY(-100%); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-box {
+            width: 46px;
+            height: 46px;
+            background: rgba(17, 23, 39, 0.8);
+            border: 1px solid rgba(250, 204, 21, 0.4);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--neon-yellow);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(250, 204, 21, 0.25);
+            animation: logoFloat 3s ease-in-out infinite, logoGlow 2s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+        .logo-box:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 0 35px rgba(250, 204, 21, 0.6);
+            border-color: #fff;
+        }
+        .logo-sparkle {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 150%;
+            height: 150%;
+            background: conic-gradient(from 90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            animation: sparkleSpin 3s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes sparkleSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-7px); }
+        }
+        @keyframes logoGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(250, 204, 21, 0.25); }
+            50% { box-shadow: 0 0 40px rgba(250, 204, 21, 0.6); }
+        }
+
+        .logo-text h1 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e0 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+        }
+        .logo-text h1 span {
+            color: var(--neon-yellow);
+            -webkit-text-fill-color: var(--neon-yellow);
+            text-shadow: 0 0 12px var(--neon-yellow), 0 0 25px var(--neon-yellow);
+            animation: neonPulse 2.2s infinite alternate;
+        }
+        @keyframes neonPulse {
+            0% { text-shadow: 0 0 12px var(--neon-yellow), 0 0 25px var(--neon-yellow); }
+            100% { text-shadow: 0 0 25px #fff, 0 0 50px #fff; }
+        }
+        .logo-text p {
+            font-size: 0.7rem;
+            color: var(--neon-yellow);
+            font-weight: 600;
+            margin-top: 3px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            letter-spacing: 0.3px;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 12px;
+        }
+        .icon-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--neon-yellow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+        .icon-circle.home { color: #ffffff; }
+        .icon-circle:hover {
+            border-color: var(--neon-yellow);
+            box-shadow: 0 0 25px rgba(250, 204, 21, 0.35);
+            transform: translateY(-3px);
+            background: rgba(250, 204, 21, 0.1);
+        }
+        .icon-circle:active {
+            transform: scale(0.9);
+        }
+        .icon-circle::after {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 50%;
+        }
+        .icon-circle:hover::after {
+            opacity: 1;
+            animation: pulseRing 1.2s ease-out infinite;
+        }
+        @keyframes pulseRing {
+            0% { transform: scale(0.8); opacity: 0.7; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 20px;
+            padding: 24px 20px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border-line);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .card.animated {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(250, 204, 21, 0.04), transparent);
+            transition: left 0.6s;
+        }
+        .card:hover::before { left: 100%; }
+        .card:hover {
+            border-color: rgba(250, 204, 21, 0.25);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 30px rgba(250, 204, 21, 0.08);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-sub);
+            margin-bottom: 16px;
+            border: 1px solid var(--border-line);
+            animation: fadeInDown 0.6s ease forwards;
+            opacity: 0;
+            animation-delay: 0.2s;
+        }
+        .badge i { color: var(--text-sub); margin-right: 4px; animation: spinIcon 2s linear infinite; }
+        @keyframes spinIcon { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-title {
+            font-size: 1.7rem;
+            line-height: 1.35;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .hero-title .glow {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 15px rgba(250, 204, 21, 0.6);
+            animation: neonFlicker 2s infinite alternate;
+        }
+        @keyframes neonFlicker {
+            0%, 100% { text-shadow: 0 0 15px rgba(250, 204, 21, 0.6); }
+            50% { text-shadow: 0 0 25px rgba(250, 204, 21, 0.9); }
+        }
+        .hero-desc {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            padding: 0 10px;
+        }
+
+        .btn-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            height: 48px;
+            border-radius: 12px;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn:active { transform: scale(0.97); }
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            animation: rippleEffect 0.6s linear;
+            pointer-events: none;
+        }
+        @keyframes rippleEffect { to { transform: scale(4); opacity: 0; } }
+        .btn-blue {
+            width: 100%;
+            background: var(--btn-blue);
+            box-shadow: 0 0 20px rgba(234, 179, 8, 0.4);
+            animation: pulseBlue 2s infinite;
+            color: #111;
+        }
+        @keyframes pulseBlue {
+            0%, 100% { box-shadow: 0 0 20px rgba(234, 179, 8, 0.3); }
+            50% { box-shadow: 0 0 35px rgba(234, 179, 8, 0.6); }
+        }
+        .btn-yellow {
+            width: 70%;
+            background: var(--btn-yellow);
+            color: #111;
+            box-shadow: 0 0 20px rgba(234, 179, 8, 0.2);
+            animation: pulseYellow 2s infinite 0.3s;
+        }
+        @keyframes pulseYellow {
+            0%, 100% { box-shadow: 0 0 20px rgba(234, 179, 8, 0.2); }
+            50% { box-shadow: 0 0 35px rgba(234, 179, 8, 0.5); }
+        }
+        .btn-dark {
+            width: 50%;
+            background: var(--btn-dark);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .btn-dark:hover {
+            background: #384152;
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .section-break {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin: 30px 0 20px;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition-smooth);
+        }
+        .section-break.animated { animation: fadeInUp 0.7s ease forwards; }
+        .section-break i { color: var(--neon-yellow); font-size: 1.4rem; animation: bounceIcon 1.5s infinite; }
+        @keyframes bounceIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+            background-color: var(--bg-card);
+            border: 1px solid rgba(250, 204, 21, 0.25);
+            border-radius: 14px;
+            padding: 12px 14px;
+            transition: var(--transition-smooth);
+        }
+        .input-group:hover {
+            border-color: rgba(250, 204, 21, 0.5);
+            box-shadow: 0 0 20px rgba(250, 204, 21, 0.15);
+        }
+        .input-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--neon-yellow);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+        }
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-input);
+            border-radius: 8px;
+            padding: 6px 6px 6px 12px;
+        }
+        .input-row input {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 0.9rem;
+            width: 100%;
+            outline: none;
+        }
+        .copy-icon {
+            width: 35px;
+            height: 35px;
+            background: rgba(250, 204, 21, 0.15);
+            color: var(--neon-yellow);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition-smooth);
+        }
+        .copy-icon:hover {
+            background: rgba(250, 204, 21, 0.3);
+            box-shadow: 0 0 15px rgba(250, 204, 21, 0.4);
+            transform: scale(1.05);
+        }
+
+        .open-shadowrocket-btn {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            color: var(--neon-yellow);
+            font-weight: 700;
+            border-radius: 12px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+            box-shadow: 0 0 15px rgba(250, 204, 21, 0.1);
+        }
+        .open-shadowrocket-btn i {
+            font-size: 1.2rem;
+            color: var(--neon-yellow);
+        }
+        .open-shadowrocket-btn:hover {
+            border-color: var(--neon-yellow);
+            box-shadow: 0 0 25px rgba(250, 204, 21, 0.3);
+            background: #1e293b;
+            transform: translateY(-1px);
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-line);
+        }
+        .time-update i { animation: spinSlow 4s linear infinite; }
+        @keyframes spinSlow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .id-badge {
+            background: var(--bg-input);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid var(--border-line);
+        }
+
+        .theme-grid {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .theme-color {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+        }
+        .theme-color:hover {
+            transform: scale(1.1);
+            border-color: white;
+        }
+        .theme-color.active {
+            border-color: var(--neon-yellow);
+            box-shadow: 0 0 15px currentColor;
+        }
+
+        .explore-text {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            margin: 30px 0 15px;
+            padding: 0 20px;
+        }
+        .btn-explore {
+            width: 100%;
+            background: var(--btn-blue);
+            color: #111;
+            border: none;
+            border-radius: 25px;
+            height: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 0 25px rgba(234, 179, 8, 0.5);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-explore i { animation: bounceIcon 1.5s infinite; }
+
+        .floating-contact {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: var(--btn-yellow);
+            color: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 25px rgba(234, 179, 8, 0.4);
+            cursor: pointer;
+            z-index: 200;
+            transition: var(--transition-smooth);
+            animation: pulseContact 2s infinite;
+        }
+        @keyframes pulseContact {
+            0%, 100% { box-shadow: 0 8px 25px rgba(234, 179, 8, 0.4); }
+            50% { box-shadow: 0 8px 35px rgba(234, 179, 8, 0.7); transform: scale(1.05); }
+        }
+        .floating-contact:hover {
+            transform: scale(1.1) translateY(-4px);
+        }
+
+        .contact-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-line);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 24px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .contact-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--neon-yellow);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #111;
+        }
+        .contact-info h4 {
+            font-size: 0.9rem;
+            color: white;
+        }
+        .contact-info p {
+            font-size: 0.75rem;
+            color: var(--text-sub);
+        }
+        .contact-action {
+            margin-left: auto;
+            background: var(--btn-yellow);
+            border: none;
+            color: #111;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        #vipFooter {
+            position: relative;
+            margin-top: 50px;
+            padding: 30px 20px 25px;
+            background: rgba(5, 8, 20, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(250, 204, 21, 0.2);
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        #vipFooter.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .footer-glow-line {
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-yellow), #fff, var(--neon-yellow), transparent);
+            filter: blur(2px);
+            animation: glowLineMove 3s linear infinite;
+        }
+        @keyframes glowLineMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .footer-container {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-icon {
+            font-size: 1.5rem;
+            color: var(--neon-yellow);
+            animation: floatIcon 2s ease-in-out infinite;
+            text-shadow: 0 0 15px rgba(250, 204, 21, 0.6);
+        }
+
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .brand-text {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #fff 0%, #a0b4e0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .brand-badge {
+            background: rgba(250, 204, 21, 0.15);
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            color: var(--neon-yellow);
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            animation: badgePulse 2s infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { box-shadow: 0 0 5px rgba(250, 204, 21, 0.3); }
+            50% { box-shadow: 0 0 15px rgba(250, 204, 21, 0.7); }
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 18px;
+        }
+
+        .footer-link {
+            color: var(--text-sub);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-link i {
+            font-size: 0.9rem;
+            transition: transform 0.3s;
+        }
+
+        .footer-link:hover {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
+        }
+
+        .footer-link:hover i {
+            transform: translateY(-2px);
+        }
+
+        .discord-link:hover {
+            color: #5865F2;
+            text-shadow: 0 0 10px rgba(88, 101, 242, 0.6);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 15px;
+        }
+
+        .copyright {
+            color: var(--text-sub);
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .social-dot:hover {
+            background: var(--neon-yellow);
+            color: #111;
+            border-color: var(--neon-yellow);
+            box-shadow: 0 0 20px rgba(250, 204, 21, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .scroll-up-vip {
+            position: absolute;
+            right: 0;
+            top: -20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(5, 8, 20, 0.8);
+            border: 1px solid var(--neon-yellow);
+            color: var(--neon-yellow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 5;
+            box-shadow: 0 0 20px rgba(250, 204, 21, 0.2);
+        }
+
+        .scroll-up-vip:hover {
+            background: var(--neon-yellow);
+            color: #111;
+            box-shadow: 0 0 35px rgba(250, 204, 21, 0.6);
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        .scroll-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: var(--neon-yellow);
+            animation: spinRing 2s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes spinRing {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 400px) {
+            .hero-title { font-size: 1.4rem; }
+            .btn { font-size: 0.85rem; height: 44px; }
+            .footer-top { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .footer-links { width: 100%; justify-content: space-between; }
+            #mainHeader { padding: 10px 12px; }
+            .logo-text h1 { font-size: 1rem; }
+            .icon-circle { width: 34px; height: 34px; }
+        }
+        .unlock-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .unlock-item {
+            background: var(--bg-input);
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition-smooth);
+        }
+
+        .unlock-item:hover {
+            background: rgba(250, 204, 21, 0.1);
+            border-color: var(--neon-yellow);
+            transform: translateY(-2px);
+        }
+
+        .app-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            border-radius: 6px;
+            background: #fff;
+            padding: 2px;
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .popup-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 80vh;
+        }
+        .popup-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            border: 2px solid var(--neon-yellow);
+        }
+        .close-popup {
+            position: absolute;
+            top: -15px; right: -15px;
+            background: var(--neon-yellow);
+            border: none; color: #111;
+            width: 30px; height: 30px;
+            border-radius: 50%; cursor: pointer;
+        }
+    </style>
+</head>
+<body id="top">
+    <canvas id="particles-canvas"></canvas>
+    <div class="toast" id="toast" style="position:fixed; bottom:90px; left:50%; transform:translateX(-50%); background:#111; color:var(--neon-yellow); padding:10px 20px; border-radius:30px; z-index:999; opacity:0; transition:0.3s; border:1px solid var(--neon-yellow);"><i class="fa-solid fa-check"></i> Đã sao chép!</div>
+
+    <div class="top-bar" id="topBar">
+        <div class="top-bar-text">
+            🔥 TẢI ESIGN & CERT APPLE MIỄN PHÍ 2026 - KHÔNG REVOKE - HỖ TRỢ KÝ IPA ONLINE - CHỐNG THU HỒI CHỨNG CHỈ
+        </div>
+    </div>
+
+    <div class="floating-contact" id="floatingContact">
+        <i class="fa-brands fa-telegram"></i>
+    </div>
+
+    <div class="container">
+        <header id="mainHeader">
+            <div class="header-left">
+                <div class="logo-box">
+                    <i class="fa-solid fa-shield-haltered"></i>
+                    <span class="logo-sparkle"></span>
+                </div>
+                <div class="logo-text">
+                    <h1>YOUNJ <span>SIGN</span></h1>
+                    <p><i class="fa-solid fa-certificate"></i> ESIGN & CERT 2026</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="icon-circle" aria-label="Cài đặt">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+                <button class="icon-circle home" aria-label="Trang chủ">
+                    <i class="fa-solid fa-house"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="card" style="text-align: center;">
+            <div class="badge"><i class="fa-solid fa-shield-haltered"></i> ESIGN & CERT MIỄN PHÍ</div>
+            <h2 class="hero-title">Tải File Esign<br><span class="glow">Cert Apple</span> 2026</h2>
+            <p class="hero-desc">
+                Kho công cụ ký IPA miễn phí, chứng chỉ Apple không revoke, hỗ trợ cài đặt Esign dễ dàng.<br>
+                Cập nhật liên tục mỗi ngày, tương thích mọi dòng iPhone iOS 16-18.
+            </p>
+            <div class="btn-wrapper">
+                <button class="btn btn-blue"><i class="fa-solid fa-download"></i> Tải File Esign Mới Nhất</button>
+                <button class="btn btn-yellow"><i class="fa-solid fa-key"></i> Tải Cert Apple Miễn Phí</button>
+                <button class="btn btn-dark"><i class="fa-solid fa-screwdriver-wrench"></i> Tiện ích Khác</button>
+            </div>
+        </div>
+
+        <div class="section-break"><i class="fa-solid fa-circle-down"></i> HƯỚNG DẪN CÀI ĐẶT</div>
+
+        <div class="card">
+            <div class="input-group">
+                <div class="input-label"><i class="fa-solid fa-link"></i> LINK TẢI ESIGN IPA</div>
+                <div class="input-row">
+                    <input type="text" id="rawLink" value="https://younj.io.vn/esign/esign-latest.ipa" readonly>
+                    <button class="copy-icon" onclick="copyConfig('rawLink', event)"><i class="fa-regular fa-copy"></i></button>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <div class="input-label"><i class="fa-solid fa-certificate"></i> LINK TẢI CERT APPLE (MOBILECONFIG)</div>
+                <div class="input-row">
+                    <input type="text" id="certLink" value="https://younj.io.vn/cert/apple-cert-2026.mobileconfig" readonly>
+                    <button class="copy-icon" onclick="copyConfig('certLink', event)"><i class="fa-regular fa-copy"></i></button>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <div class="input-label"><i class="fa-solid fa-cloud-arrow-down"></i> CÀI ĐẶT BẰNG ESIGN / TROLLSTORE</div>
+                <button class="open-shadowrocket-btn" id="openShadowrocket">
+                    <i class="fa-solid fa-gear"></i> Mở Hướng Dẫn Cài Đặt <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+            </div>
+
+            <div class="card-footer">
+                <div class="time-update">
+                    <i class="fa-regular fa-clock"></i> Cập nhật: <span id="timeText">Đang tải...</span>
+                </div>
+                <div class="id-badge">VER: #ESIGN.CERT.2026</div>
+            </div>
+        </div>
+
+        <div class="section-break"><i class="fa-solid fa-palette"></i> THEME WEBSITE</div>
+        <div class="card">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                <i class="fa-solid fa-brush" style="color: var(--neon-yellow); font-size: 1.3rem;"></i>
+                <span style="font-weight: 700;">Chọn giao diện cho Website</span>
+            </div>
+            <div class="theme-grid" id="themeGrid">
+                <div class="theme-color active" style="background: #facc15;" data-color="#facc15"><i class="fa-solid fa-check"></i></div>
+                <div class="theme-color" style="background: #ef4444;" data-color="#ef4444"></div>
+                <div class="theme-color" style="background: #10b981;" data-color="#10b981"></div>
+                <div class="theme-color" style="background: #8b5cf6;" data-color="#8b5cf6"></div>
+                <div class="theme-color" style="background: #f472b6;" data-color="#f472b6"></div>
+                <div class="theme-color" style="background: #fb923c;" data-color="#fb923c"></div>
+                <div class="theme-color" style="background: #38bdf8;" data-color="#38bdf8"></div>
+                <div class="theme-color" style="background: #06b6d4;" data-color="#06b6d4"></div>
+                <div class="theme-color" style="background: #a3e635;" data-color="#a3e635"></div>
+                <div class="theme-color" style="background: #e11d48;" data-color="#e11d48"></div>
+                <div class="theme-color" style="background: #ffffff; color: #111;" data-color="#ffffff">Aa</div>
+            </div>
+            <p style="font-size: 0.7rem; color: var(--text-sub); margin-top: 10px;">Theme áp dụng trực tiếp. Mặc định vàng Gold.</p>
+        </div>
+
+        <div class="section-break"><i class="fa-solid fa-cubes"></i> DANH SÁCH ỨNG DỤNG HỖ TRỢ KÝ</div>
+        <div class="card">
+            <div class="unlock-grid">
+                <div class="unlock-item">
+                    <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/77/2c/cb/772ccbb2-90e9-7902-3cfc-6792acbe4935/app_icon-0-0-1x_U007ephone-0-1-sRGB-85-220.png/512x512bb.jpg" alt="YouTube" class="app-icon"> YOUTUBE PREMIUM
+                </div>
+                <div class="unlock-item">
+                    <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d0/3b/20/d03b20a1-20ef-2fe0-87f1-2c48f1ed7b5f/AppIcon-0-0-1x_U007emarketing-0-5-0-0-0-0-85-220.png/512x512bb.jpg" alt="Spotify" class="app-icon"> SPOTIFY ++
+                </div>
+                <div class="unlock-item">
+                    <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ad/32/f9/ad32f941-0f8b-0d77-f9d8-6a7455f874f6/app-icon-production-0-0-1x_U007epad-0-1-0-85-220.png/512x512bb.jpg" alt="Instagram" class="app-icon"> INSTAGRAM RHINO
+                </div>
+                <div class="unlock-item">
+                    <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/5e/19/12/5e19122a-4c16-2cf0-6cbe-8ed8b8a0a2e9/AppIcon-0-0-1x_U007emarketing-0-7-0-0-0-0-85-220.png/512x512bb.jpg" alt="TikTok" class="app-icon"> TIKTOK UNLOCKED
+                </div>
+            </div>
+            <p style="font-size: 0.7rem; color: var(--text-sub); margin-top: 15px; text-align: center;">
+                * Danh sách ứng dụng hỗ trợ ký IPA bằng Esign & Cert mới nhất 29/06/2026
+            </p>
+        </div>
+
+        <div class="section-break"><i class="fa-solid fa-certificate"></i> HỖ TRỢ CÀI ĐẶT PREMIUM</div>
+        <div class="card">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                <h3 style="font-size: 1rem;"><i class="fa-brands fa-apple" style="color: var(--neon-yellow);"></i> Dịch Vụ Ký IPA & Cert Bảo Hành</h3>
+                <span style="background: var(--neon-yellow); color: #000; padding: 4px 8px; border-radius: 6px; font-weight: 800; font-size: 0.8rem;">50K</span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-sub); margin-bottom: 20px;">
+                Hỗ trợ cài đặt Esign, cert Apple riêng, chống revoke vĩnh viễn, bảo hành 1 năm.
+            </p>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-blue" style="flex: 2;" onclick="window.open('https://t.me/younj_icloud', '_blank')">Nhận Hỗ Trợ</button>
+                <button class="btn btn-dark" style="flex: 1;" onclick="showPopup()">Lưu ý</button>
+            </div>
+        </div>
+
+        <div id="imagePopup" class="popup-overlay" onclick="closePopup()">
+            <div class="popup-content" onclick="event.stopPropagation()">
+                <img src="https://i.imgur.com/gsls5hG.jpeg" alt="Lưu ý cài đặt Esign và Cert">
+                <button class="close-popup" onclick="closePopup()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+
+        <div class="contact-card">
+            <div class="contact-avatar"><i class="fa-solid fa-headset"></i></div>
+            <div class="contact-info">
+                <h4>Hỗ trợ 24/7</h4>
+                <p>Telegram: @younj_icloud</p>
+            </div>
+            <button class="contact-action" onclick="showToast('Đã mở Telegram!', 'fa-paper-plane')">Nhắn tin</button>
+        </div>
+
+        <p class="explore-text">🔥 Bạn muốn tìm thêm công cụ ký IPA hoặc chứng chỉ Apple miễn phí khác?</p>
+        <a href="https://younj.io.vn" target="_blank" style="text-decoration: none; display: block;">
+            <button class="btn-explore">
+                <i class="fa-solid fa-rocket"></i> Khám Phá Kho Công Cụ Younj Sign
+            </button>
+        </a>
+
+        <footer id="vipFooter">
+            <div class="footer-glow-line"></div>
+            <div class="footer-container">
+                <div class="footer-top">
+                    <div class="footer-brand">
+                        <span class="brand-icon"><i class="fa-solid fa-shield-haltered"></i></span>
+                        <span class="brand-text">YOUNJ SIGN</span>
+                        <span class="brand-badge">ESIGN ZONE</span>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">
+                            <i class="fa-solid fa-house"></i> Trang Chủ
+                        </a>
+                        <a href="https://younj.io.vn" class="footer-link discord-link">
+                            <i class="fa-brands fa-discord"></i> Discord
+                        </a>
+                        <a href="#" class="footer-link">
+                            <i class="fa-solid fa-envelope"></i> Hỗ Trợ
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="copyright">
+                        <i class="fa-regular fa-copyright"></i> 2026 YOUNJ SIGN x ESIGN TEAM
+                    </div>
+                    <div class="footer-social">
+                        <a href="#" class="social-dot"><i class="fa-brands fa-telegram"></i></a>
+                        <a href="#" class="social-dot"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="social-dot"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <a href="#top" class="scroll-up-vip">
+                    <i class="fa-solid fa-arrow-up"></i>
+                    <span class="scroll-ring"></span>
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            const particleCount = 60;
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+            class Particle {
+                constructor() { this.reset(); }
+                reset() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 1.5 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.4;
+                    this.speedY = (Math.random() - 0.5) * 0.4;
+                    this.opacity = Math.random() * 0.5 + 0.1;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) this.reset();
+                }
+                draw(ctx) {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(250, 204, 21, ${this.opacity})`;
+                    ctx.fill();
+                }
+            }
+            for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => { p.update(); p.draw(ctx); });
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 100) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(250, 204, 21, ${0.05 * (1 - dist/100)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        document.querySelectorAll('.btn, .open-shadowrocket-btn, .btn-explore, .copy-icon, .contact-action').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+                ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+                this.appendChild(ripple);
+                ripple.addEventListener('animationend', () => ripple.remove());
+            });
+        });
+
+        function showToast(message, icon = 'fa-check') {
+            const toast = document.getElementById('toast');
+            toast.innerHTML = `<i class="fa-solid ${icon}"></i> ${message}`;
+            toast.style.opacity = '1';
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => toast.style.opacity = '0', 2000);
+        }
+
+        function copyConfig(elementId, event) {
+            var copyText = document.getElementById(elementId);
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(copyText.value).then(() => {
+                showToast('Đã sao chép!', 'fa-check');
+            }).catch(() => {
+                showToast('Sao chép thất bại', 'fa-times');
+            });
+            let btn = event.currentTarget;
+            let originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+            btn.style.background = 'var(--neon-yellow)';
+            btn.style.color = '#111';
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.style.background = 'rgba(250, 204, 21, 0.15)';
+                btn.style.color = 'var(--neon-yellow)';
+            }, 1500);
+        }
+
+        (function() {
+            const header = document.getElementById('mainHeader');
+            const topBar = document.getElementById('topBar');
+            let lastScrollTop = 0;
+            const delta = 10;
+            window.addEventListener('scroll', () => {
+                let st = window.pageYOffset || document.documentElement.scrollTop;
+                if (Math.abs(lastScrollTop - st) <= delta) return;
+                if (st > lastScrollTop && st > 60) {
+                    header?.classList.add('hidden');
+                    topBar?.classList.add('hidden');
+                } else if (st < lastScrollTop) {
+                    header?.classList.remove('hidden');
+                    topBar?.classList.remove('hidden');
+                }
+                lastScrollTop = st <= 0 ? 0 : st;
+            });
+        })();
+
+        document.getElementById('openShadowrocket').addEventListener('click', function() {
+            window.open('https://younj.io.vn/huong-dan-cai-esign-cert', '_blank');
+            showToast('Đang mở hướng dẫn...', 'fa-gear');
+        });
+
+        document.querySelectorAll('.theme-color').forEach(el => {
+            el.addEventListener('click', function() {
+                document.querySelectorAll('.theme-color').forEach(c => {
+                    c.classList.remove('active');
+                    c.innerHTML = '';
+                });
+                this.classList.add('active');
+                this.innerHTML = '<i class="fa-solid fa-check"></i>';
+                const color = this.dataset.color;
+                document.documentElement.style.setProperty('--neon-blue', color);
+                document.documentElement.style.setProperty('--neon-yellow', color);
+                localStorage.setItem('selectedTheme', color);
+                showToast(`Đã áp dụng theme ${color}`, 'fa-palette');
+            });
+        });
+
+        window.addEventListener('load', () => {
+            const savedTheme = localStorage.getItem('selectedTheme');
+            if (savedTheme) {
+                document.documentElement.style.setProperty('--neon-blue', savedTheme);
+                document.documentElement.style.setProperty('--neon-yellow', savedTheme);
+                document.querySelectorAll('.theme-color').forEach(c => {
+                    c.classList.remove('active');
+                    c.innerHTML = '';
+                    if (c.dataset.color === savedTheme) {
+                        c.classList.add('active');
+                        c.innerHTML = '<i class="fa-solid fa-check"></i>';
+                    }
+                });
+            }
+        });
+
+        document.getElementById('floatingContact').addEventListener('click', () => {
+            window.open('https://t.me/younj_icloud', '_blank');
+            showToast('Đang mở Telegram hỗ trợ', 'fa-paper-plane');
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.card, .section-break, .explore-text, .btn-explore, .contact-card').forEach(el => observer.observe(el));
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.card, .section-break, .explore-text, .btn-explore, .contact-card').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) el.classList.add('animated');
+            });
+        });
+
+        (function() {
+            const scrollUpBtn = document.querySelector('.scroll-up-vip');
+            if (scrollUpBtn) {
+                scrollUpBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+            const footer = document.getElementById('vipFooter');
+            if (footer) {
+                const footerObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('revealed');
+                            footerObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15 });
+                footerObserver.observe(footer);
+            }
+        })();
+
+        function displayCurrentTime() {
+            const now = new Date();
+            const formatted = now.toLocaleDateString('vi-VN') + ' ' + 
+                              now.toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'});
+            const el = document.getElementById('timeText');
+            if(el) el.innerText = formatted;
+        }
+        displayCurrentTime();
+        setInterval(displayCurrentTime, 60000);
+
+        function showPopup() {
+            document.getElementById('imagePopup').style.display = 'flex';
+        }
+        function closePopup() {
+            document.getElementById('imagePopup').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>YOUNJ APP STORE - LOCKET GOLD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #007AFF;
+            --secondary: #00C6FF;
+            --dark: #000000;
+            --bg: #050505;
+            --text: #FFFFFF;
+            --accent: #7FE7FF;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+            --safe-area-top: max(env(safe-area-inset-top), 20px);
+            --app-icon-url: url('https://fatal-coral-bat.myfilebase.com/ipfs/QmZk4YP7qJFDnAjNGFMrqcM9ZjWicXYnrGXiGJjQYWmaSg');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            overscroll-behavior-y: none;
+        }
+
+        /* Khung nền ma thuật */
+        .background-container {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .mesh-gradient {
+            position: absolute;
+            inset: -50%;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(0, 198, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 122, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(127, 231, 255, 0.05) 0%, transparent 40%);
+            animation: meshRotate 20s linear infinite;
+            filter: blur(60px);
+        }
+
+        @keyframes meshRotate {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* Kính mờ siêu cấp (Apple Style) */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(30px) saturate(150%);
+            -webkit-backdrop-filter: blur(30px) saturate(150%);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            box-shadow: var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+        }
+        
+        .glass:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 198, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Màn hình chờ vui nhộn */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.8, 0, 0.2, 1);
+        }
+
+        .apple-logo-mock {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff, #00C6FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: bounceIn 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite alternate;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.9) translateY(10px); filter: drop-shadow(0 0 5px rgba(0,198,255,0.2)); }
+            100% { transform: scale(1.1) translateY(-10px); filter: drop-shadow(0 0 25px rgba(0,198,255,0.8)); }
+        }
+
+        .progress-bar-container {
+            width: 220px;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #007AFF, #00C6FF);
+            border-radius: 10px;
+            transition: width 1.5s cubic-bezier(0.8, 0, 0.2, 1);
+            position: relative;
+        }
+        
+        .progress-bar::after {
+            content: ''; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            animation: shimmer 1s infinite linear;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Header / Dynamic Island */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+            display: flex; justify-content: center; padding-top: var(--safe-area-top);
+        }
+
+        .dynamic-island {
+            width: 140px; height: 35px;
+            background: #000;
+            border-radius: 30px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 15px;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        header.scrolled .dynamic-island {
+            width: 320px; height: 48px;
+            background: rgba(15, 15, 15, 0.85);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            opacity: 1; transform: translateY(10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 15px rgba(0, 198, 255, 0.2);
+        }
+
+        .island-left { display: flex; align-items: center; gap: 10px; opacity: 0; transition: opacity 0.3s; }
+        header.scrolled .island-left { opacity: 1; transition-delay: 0.2s; }
+        
+        .island-icon {
+            width: 28px; height: 28px; border-radius: 8px;
+            background-image: var(--app-icon-url); background-size: cover;
+        }
+        .island-btn {
+            background: #fff; color: #000; padding: 6px 16px; border-radius: 20px;
+            font-size: 0.8rem; font-weight: 800; text-decoration: none;
+            opacity: 0; transition: all 0.3s;
+        }
+        header.scrolled .island-btn { opacity: 1; transition-delay: 0.3s; }
+        .island-btn:hover { transform: scale(1.05); background: var(--secondary); color: white; }
+
+        /* Main Content */
+        main { padding: calc(var(--safe-area-top) + 80px) 20px 100px; max-width: 600px; margin: 0 auto; }
+
+        .hero { text-align: center; margin-bottom: 40px; }
+        
+        .app-icon-wrapper { width: 150px; height: 150px; margin: 0 auto 24px; position: relative; perspective: 1000px; }
+        .app-icon {
+            width: 100%; height: 100%; border-radius: 35px;
+            background-image: var(--app-icon-url); background-size: cover;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), inset 0 2px 4px rgba(255,255,255,0.3);
+            animation: float 6s ease-in-out infinite;
+            transform-style: preserve-3d;
+        }
+
+        .app-title { font-size: 2.5rem; font-weight: 800; background: linear-gradient(to right, #fff, #a1a1a6); -webkit-background-clip: text; color: transparent; margin-bottom: 8px; }
+        .app-tagline { font-size: 1.15rem; color: #A1A1A6; line-height: 1.4; margin-bottom: 16px; }
+        .dev-name { font-size: 1rem; color: var(--secondary); font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+
+        /* Stats */
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 40px; }
+        .stat-card {
+            padding: 18px 10px; text-align: center; border-radius: 24px;
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Nút tải ma thuật */
+        .download-section { margin-bottom: 50px; display: flex; justify-content: center; position: relative; }
+        .liquid-btn {
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.2), rgba(0, 198, 255, 0.2));
+            border: 1px solid rgba(0, 198, 255, 0.5);
+            backdrop-filter: blur(20px);
+            padding: 18px 50px; border-radius: 40px;
+            font-size: 1.25rem; font-weight: 800; color: #fff; cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 198, 255, 0.3), inset 0 1px 2px rgba(255,255,255,0.4);
+            transition: all 0.3s cubic-bezier(0.3, 1, 0.3, 1);
+            width: 85%; max-width: 320px;
+            position: relative; overflow: hidden;
+            animation: pulseGlowBtn 3s infinite;
+        }
+
+        .liquid-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.5s;
+        }
+        
+        .liquid-btn:hover { transform: scale(1.05) translateY(-3px); box-shadow: 0 10px 30px rgba(0, 198, 255, 0.6); }
+        .liquid-btn:hover::before { left: 100%; }
+
+        @keyframes pulseGlowBtn {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 198, 255, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(0, 198, 255, 0.6); }
+        }
+
+        /* Thư viện ảnh */
+        .section-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 24px; color: #fff; display: flex; align-items: center; gap: 10px; }
+        
+        .scroll-gallery {
+            display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory;
+            padding-bottom: 24px; scrollbar-width: none;
+        }
+        .scroll-gallery::-webkit-scrollbar { display: none; }
+        
+        .screenshot {
+            flex: 0 0 70%; aspect-ratio: 9/19.5; background: #111; border-radius: 32px;
+            scroll-snap-align: center; border: 2px solid rgba(255,255,255,0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8); position: relative;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .screenshot:hover { transform: scale(1.05) rotateY(-5deg); z-index: 10; border-color: rgba(0,198,255,0.3); }
+        .screenshot::before {
+            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 35%; height: 28px; background: #000; border-radius: 0 0 16px 16px; z-index: 2;
+        }
+        .mock-ui { height: 100%; border-radius: 30px; overflow: hidden; background-size: cover; background-position: center; }
+
+        /* Features */
+        .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .feature-card { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+        .feature-icon {
+            width: 48px; height: 48px; border-radius: 16px;
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.2), rgba(0, 198, 255, 0.2));
+            display: flex; align-items: center; justify-content: center;
+            color: var(--secondary); font-size: 1.5rem;
+            box-shadow: inset 0 0 10px rgba(0,198,255,0.2);
+        }
+        .feature-title { font-weight: 700; font-size: 1.05rem; }
+
+        /* Timeline */
+        .timeline { padding-left: 20px; border-left: 2px dashed rgba(255,255,255,0.15); margin-top: 20px; }
+        .timeline-item { position: relative; margin-bottom: 20px; font-size: 0.95rem; color: #D1D1D6; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -27px; top: 4px; width: 12px; height: 12px;
+            background: var(--secondary); border-radius: 50%; box-shadow: 0 0 15px var(--secondary);
+        }
+
+        /* Bottom Sheet */
+        .sheet-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+        }
+        .sheet-overlay.active { opacity: 1; pointer-events: all; }
+
+        .bottom-sheet {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+            border-top: 1px solid rgba(255,255,255,0.15);
+            border-top-left-radius: 36px; border-top-right-radius: 36px;
+            padding: 30px 24px 40px; transform: translateY(100%);
+            transition: transform 0.6s cubic-bezier(0.3, 1.2, 0.3, 1);
+            z-index: 1001; box-shadow: 0 -15px 50px rgba(0,0,0,0.9);
+        }
+        .bottom-sheet.active { transform: translateY(0); }
+
+        .sheet-handle { width: 50px; height: 6px; background: rgba(255,255,255,0.3); border-radius: 6px; margin: 0 auto 24px; cursor: pointer; }
+        
+        .sheet-header { display: flex; gap: 20px; margin-bottom: 30px; align-items: center; }
+        .sheet-icon { width: 70px; height: 70px; border-radius: 20px; background-image: var(--app-icon-url); background-size: cover; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .sheet-info h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; }
+        .sheet-info p { font-size: 0.85rem; color: #A1A1A6; line-height: 1.5; }
+
+        .btn {
+            width: 100%; padding: 18px; border-radius: 20px; font-weight: 700; font-size: 1.1rem;
+            border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+            transition: all 0.2s;
+        }
+        .btn:active { transform: scale(0.95); }
+
+        .btn-direct {
+            background: linear-gradient(135deg, #007AFF, #00C6FF); color: #fff;
+            box-shadow: 0 8px 25px rgba(0, 198, 255, 0.4);
+        }
+        .btn-ipa { background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.1); margin-top: 15px; }
+
+        /* GSAP Utility */
+        .gsap-reveal { opacity: 0; visibility: hidden; }
+
+        /* SIÊU CẤP TOAST UI - APPLE GLASS STYLE */
+        .apple-toast {
+            position: fixed;
+            top: max(env(safe-area-inset-top), 30px);
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: rgba(30, 30, 30, 0.75);
+            backdrop-filter: blur(25px) saturate(160%);
+            -webkit-backdrop-filter: blur(25px) saturate(160%);
+            border: 1px solid rgba(255, 69, 58, 0.3); /* Viền đỏ cảnh báo nhẹ */
+            color: #FFF;
+            padding: 14px 22px;
+            border-radius: 24px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            z-index: 10005;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 69, 58, 0.1);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.3), opacity 0.4s ease;
+            opacity: 0;
+            pointer-events: none;
+            width: max-content;
+            max-width: 90%;
+            text-align: center;
+        }
+        .apple-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        .apple-toast i {
+            color: #FF453A; /* Màu đỏ thông báo của hệ điều hành iOS */
+            font-size: 1.15rem;
+        }
+    </style>
+</head>
+<body>
+
+    <script src="links.js"></script>
+
+    <div id="loading-screen">
+        <div class="apple-logo-mock"><i class="fa-brands fa-apple"></i></div>
+        <div style="font-weight: 700; letter-spacing: 3px; font-size: 1.2rem; margin-bottom: 30px; color: #fff;">YOUNJ STORE</div>
+        <div class="progress-bar-container"><div class="progress-bar" id="progress"></div></div>
+    </div>
+
+    <div class="background-container">
+        <div class="mesh-gradient"></div>
+    </div>
+
+    <header id="header">
+        <div class="dynamic-island">
+            <div class="island-left">
+                <div class="island-icon"></div>
+                <span style="font-size: 0.9rem; font-weight: 700;">Locket</span>
+            </div>
+            <a href="#" class="island-btn trigger-sheet">GET</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero gsap-reveal">
+            <div class="app-icon-wrapper">
+                <div class="app-icon"></div>
+            </div>
+            <h1 class="app-title">Locket Gold</h1>
+            <p class="app-tagline">Capture life.<br>Share instantly.<br>Stay connected.</p>
+            <p class="dev-name"><i class="fa-solid fa-certificate" style="color: gold;"></i> Ipa Locket Gold</p>
+        </section>
+
+        <section class="stats-grid gsap-reveal">
+            <div class="stat-card"><div style="font-size: 1.2rem; font-weight: 800; color:#fff;">2.54.0</div><div style="font-size: 0.7rem; color: #A1A1A6;">Version</div></div>
+            <div class="stat-card"><div style="font-size: 1.2rem; font-weight: 800; color:#fff;">100+</div><div style="font-size: 0.7rem; color: #A1A1A6;">D/LOADS</div></div>
+            <div class="stat-card"><div style="font-size: 1.2rem; font-weight: 800; color:#fff;">12+</div><div style="font-size: 0.7rem; color: #A1A1A6;">AGE</div></div>
+            <div class="stat-card"><div style="font-size: 1.2rem; font-weight: 800; color:#fff;">321.7MB</div><div style="font-size: 0.7rem; color: #A1A1A6;">SIZE</div></div>
+        </section>
+
+        <section class="download-section gsap-reveal">
+            <button class="liquid-btn trigger-sheet"><i class="fa-solid fa-cloud-arrow-down"></i> TẢI NGAY</button>
+        </section>
+
+        <section class="screenshots gsap-reveal">
+            <h2 class="section-title"><i class="fa-solid fa-mobile-screen"></i> Preview</h2>
+            <div class="scroll-gallery">
+                <div class="screenshot"><div class="mock-ui" style="background-image: url('https://fatal-coral-bat.myfilebase.com/ipfs/QmY9PFMuNBszCMLoBMGcFWTWX7dTKbK4K8ysBkqKUwszm6');"></div></div>
+                <div class="screenshot"><div class="mock-ui" style="background-image: url('https://fatal-coral-bat.myfilebase.com/ipfs/QmZwMp3MYZrFmb7zXW4e9jCP4e3UpEqPgyPZaDcEk7A3pG');"></div></div>
+                <div class="screenshot"><div class="mock-ui" style="background-image: url('https://fatal-coral-bat.myfilebase.com/ipfs/QmYRvVXggYGfj6FPb7x4bieCNNDr8qnmLBfKoQtJs8KsYa');"></div></div>
+                <div class="screenshot"><div class="mock-ui" style="background-image: url('https://fatal-coral-bat.myfilebase.com/ipfs/QmXJFdP2LbU8jG7H4TidRh3Ay3Uf9zNbzNKBCk5gNHyUNY');"></div></div>
+            </div>
+        </section>
+
+        <section class="features gsap-reveal">
+            <h2 class="section-title"><i class="fa-solid fa-bolt"></i> Features</h2>
+            <div class="features-grid">
+                <div class="glass feature-card"><div class="feature-icon"><i class="fa-solid fa-camera"></i></div><div class="feature-title">Live Photos</div><p style="font-size: 0.85rem; color: #A1A1A6;">Share real moments instantly to screens.</p></div>
+                <div class="glass feature-card"><div class="feature-icon"><i class="fa-solid fa-lock"></i></div><div class="feature-title">Lock Screen</div><p style="font-size: 0.85rem; color: #A1A1A6;">Widgets tailored for iOS 16+.</p></div>
+                <div class="glass feature-card"><div class="feature-icon"><i class="fa-solid fa-user-group"></i></div><div class="feature-title">Friends Feed</div><p style="font-size: 0.85rem; color: #A1A1A6;">Keep up with your inner circle.</p></div>
+                <div class="glass feature-card"><div class="feature-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div><div class="feature-title">Smart AI</div><p style="font-size: 0.85rem; color: #A1A1A6;">Powered by Apple Intelligence.</p></div>
+            </div>
+        </section>
+
+        <section class="whats-new gsap-reveal">
+            <h2 class="section-title"><i class="fa-solid fa-clock-rotate-left"></i> What's New</h2>
+            <div class="glass" style="padding: 24px;">
+                <h4 style="color: var(--secondary); font-size: 1.1rem; margin-bottom: 5px;">Version 3.4.2</h4>
+                <div class="timeline">
+                    <div class="timeline-item">Giao diện Friend Feed siêu mượt mới</div>
+                    <div class="timeline-item">Tối ưu hóa thông báo thời gian thực</div>
+                    <div class="timeline-item">Hỗ trợ hiển thị trên visionOS</div>
+                    <div class="timeline-item">Fix bug và tăng tốc độ load 30%</div>
+                </div>
+            </div>
+        </section>
+
+        <footer style="text-align: center; padding: 40px 0; font-size: 0.85rem; color: #666; font-weight: 500;">
+            YOUNJ APP STORE EXPERIENCE 2026 (KHONG MANH YEN)<br><span style="color: #A1A1A6;">Crafted with <i class="fa-solid fa-heart" style="color: #ff3b30;"></i> & Coffee.</span>
+        </footer>
+    </main>
+
+    <div class="sheet-overlay"></div>
+    <div class="bottom-sheet">
+        <div class="sheet-handle"></div>
+        <div class="sheet-header">
+            <div class="sheet-icon"></div>
+            <div class="sheet-info">
+                <h3>Locket Gold</h3>
+                <p>Version 2.54.0 • 321.7 MB<br>iOS 16+ Tương thích<br>Dev: <b>Khong Manh Yen</b></p>
+            </div>
+        </div>
+        <div class="sheet-buttons">
+            <button class="btn btn-direct" id="btn-direct"><i class="fa-solid fa-download"></i> Tải Cài Đặt Trực Tiếp</button>
+            <button class="btn btn-ipa" id="btn-ipa"><i class="fa-solid fa-box-open"></i> Lấy File IPA</button>
+        </div>
+    </div>
+
+    <div id="apple-toast" class="apple-toast">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span>Link chưa được cập nhật bạn hãy liên hệ Admin. Xin lỗi vì sự bất tiện này nhưng "Inbox thì nhớ thêm vài từ mình sẽ trả phí là được"😂</span>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script> 
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Xử lý màn hình chờ điệu đà
+            const progress = document.getElementById('progress');
+            const loadingScreen = document.getElementById('loading-screen');
+            
+            setTimeout(() => { progress.style.width = '100%'; }, 200);
+            
+            setTimeout(() => {
+                loadingScreen.style.transform = 'scale(1.2)';
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => { loadingScreen.style.display = 'none'; }, 800);
+            }, 2000);
+
+            // Animation cuộn mượt mà kiểu đàn hồi (Elastic)
+            const reveals = document.querySelectorAll('.gsap-reveal');
+            reveals.forEach((element, index) => {
+                gsap.set(element, { visibility: 'visible', y: 50, opacity: 0 });
+                gsap.to(element, {
+                    scrollTrigger: { trigger: element, start: "top 90%", toggleActions: "play none none reverse" },
+                    opacity: 1, y: 0, duration: 1, ease: "elastic.out(1, 0.7)", delay: index * 0.05
+                });
+            });
+
+            // Thanh Dynamic Island
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 120) header.classList.add('scrolled');
+                else header.classList.remove('scrolled');
+            });
+
+            // Logic Bottom Sheet
+            const sheet = document.querySelector('.bottom-sheet');
+            const overlay = document.querySelector('.sheet-overlay');
+            const triggers = document.querySelectorAll('.trigger-sheet');
+
+            const openSheet = (e) => {
+                e.preventDefault();
+                overlay.classList.add('active');
+                sheet.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            };
+
+            const closeSheet = () => {
+                overlay.classList.remove('active');
+                sheet.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            };
+
+            triggers.forEach(t => t.addEventListener('click', openSheet));
+            overlay.addEventListener('click', closeSheet);
+            document.querySelector('.sheet-handle').addEventListener('click', closeSheet);
+
+            // Hàm kích hoạt Toast thông báo
+            const toastElement = document.getElementById('apple-toast');
+            let toastTimeout;
+            const triggerToast = () => {
+                clearTimeout(toastTimeout);
+                toastElement.classList.add('show');
+                // Tự động ẩn toast sau 3.5 giây
+                toastTimeout = setTimeout(() => {
+                    toastElement.classList.remove('show');
+                }, 3500);
+            };
+
+            // NÚT 1: Tải Trực Tiếp (Có hiệu ứng loading giả lập)
+            const btnDirect = document.getElementById('btn-direct');
+            btnDirect.addEventListener('click', () => {
+                // Kiểm tra nếu link cấu hình là '#' hoặc trống
+                if (!window.DOWNLOAD_LINKS || DOWNLOAD_LINKS.direct === "#" || DOWNLOAD_LINKS.direct === "") {
+                    triggerToast();
+                    return; // Dừng xử lý không chạy animation loading nữa
+                }
+
+                let step = 0;
+                btnDirect.style.pointerEvents = 'none';
+                gsap.to(btnDirect, { scale: 0.95, duration: 0.1, yoyo: true, repeat: 1 });
+
+                const process = setInterval(() => {
+                    step++;
+                    if (step === 1) {
+                        btnDirect.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Đang chuẩn bị...';
+                        btnDirect.style.background = 'linear-gradient(135deg, #FF9500, #FFCC00)';
+                    } else if (step === 2) {
+                        btnDirect.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang tải Profile...';
+                    } else if (step === 3) {
+                        btnDirect.innerHTML = '<i class="fa-brands fa-apple fa-bounce"></i> Xác thực hệ thống...';
+                    } else {
+                        clearInterval(process);
+                        btnDirect.style.background = 'linear-gradient(135deg, #34C759, #30D158)';
+                        btnDirect.innerHTML = '<i class="fa-solid fa-check"></i> Hoàn tất!';
+                        
+                        confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, colors: ['#007AFF', '#00C6FF', '#fff'] });
+                        
+                        setTimeout(() => {
+                            closeSheet();
+                            // Chuyển hướng người dùng đến link tải thật sau khi hoàn tất
+                            window.location.href = DOWNLOAD_LINKS.direct;
+                            
+                            setTimeout(() => {
+                                btnDirect.style.pointerEvents = 'auto';
+                                btnDirect.style.background = '';
+                                btnDirect.innerHTML = '<i class="fa-solid fa-download"></i> Tải Cài Đặt Trực Tiếp';
+                            }, 500);
+                        }, 2000);
+                    }
+                }, 1000);
+            });
+
+            // NÚT 2: Tải File IPA
+            const btnIpa = document.getElementById('btn-ipa');
+            btnIpa.addEventListener('click', () => {
+                // Kiểm tra nếu link cấu hình là '#' hoặc trống
+                if (!window.DOWNLOAD_LINKS || DOWNLOAD_LINKS.ipa === "#" || DOWNLOAD_LINKS.ipa === "") {
+                    triggerToast();
+                    return;
+                }
+                
+                // Hiệu ứng bấm nút mượt
+                gsap.to(btnIpa, { scale: 0.95, duration: 0.1, yoyo: true, repeat: 1 });
+                
+                // Tải trực tiếp file IPA về thiết bị
+                setTimeout(() => {
+                    window.location.href = DOWNLOAD_LINKS.ipa;
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>

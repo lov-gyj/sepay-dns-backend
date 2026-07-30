@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>YounjDNS V4 | Cấu hình DNS Chặn Khoá iCloud Update New</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #fff5f8; /* Nền hồng pastel siêu nhẹ */
+            color: #4b5563; /* Màu chữ xám đen mềm mại */
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            width: 100%;
+            overflow-x: hidden;
+        }
+        /* Căn giữa tuyệt đối cho mọi container */
+        .container {
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            width: 100%;
+        }
+        /* Glass effect - Mốt và Cute */
+        .glass {
+            backdrop-filter: blur(14px);
+            background: rgba(255, 255, 255, 0.7);
+            border: 2px solid rgba(255, 182, 193, 0.4);
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.08);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #ff7eb3, #ff758c, #ff9a9e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #ff7eb3, #ff758c);
+            box-shadow: 0 6px 20px rgba(255, 117, 140, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(255, 117, 140, 0.5);
+        }
+        /* Nền chấm bi Cute (Polka dots) thay cho grid lưới tẻ nhạt */
+        .bg-grid {
+            background-image: radial-gradient(rgba(255, 182, 193, 0.6) 2px, transparent 2px);
+            background-size: 30px 30px;
+        }
+        /* Ẩn hiệu ứng nhiễu scanline (không hợp với phong cách Cute) */
+        .scanline {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-grid antialiased">
+    <div class="scanline"></div>
+
+    <header class="fixed top-0 left-0 w-full z-50 py-4 transition-all duration-300" id="header">
+        <div class="container">
+            <div class="glass rounded-full px-6 py-3 flex items-center justify-between">
+                <a href="#" class="flex items-center gap-2">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-pink-400 to-rose-400 flex items-center justify-center shadow-md">
+                        <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <span class="font-display font-bold text-xl tracking-wide bg-gradient-to-r from-pink-500 via-rose-400 to-pink-500 bg-clip-text text-transparent">YounjDNS<span class="text-pink-600 text-xs ml-1 px-2 py-0.5 rounded-full bg-pink-100 border border-pink-200">V4</span></span>
+                </a>
+                <nav class="hidden md:flex gap-8">
+                    <a href="#intro" class="text-sm text-gray-600 hover:text-pink-500 font-medium transition">Giới Thiệu</a>
+                    <a href="#features" class="text-sm text-gray-600 hover:text-pink-500 font-medium transition">Tính Năng</a>
+                    <a href="#pricing" class="text-sm text-gray-600 hover:text-pink-500 font-medium transition">Gói DNS</a>
+                    <a href="#faq" class="text-sm text-gray-600 hover:text-pink-500 font-medium transition">FAQ</a>
+                    <a href="#contact" class="text-sm text-gray-600 hover:text-pink-500 font-medium transition">Liên Hệ</a>
+                </nav>
+                <a href="#pricing" class="hidden sm:block px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-400 to-rose-400 text-white text-xs font-bold shadow-lg shadow-pink-200 hover:scale-105 transition-transform">Tải Ngay V4</a>
+                <button id="menuBtn" class="md:hidden w-10 h-10 rounded-full bg-white border border-pink-200 flex items-center justify-center shadow-sm"><i data-lucide="menu" class="w-5 h-5 text-pink-500"></i></button>
+            </div>
+            <div id="mobileMenu" class="hidden mt-3 glass rounded-3xl p-4 flex flex-col gap-2 shadow-xl">
+                <a href="#intro" class="mobile-link p-3 rounded-2xl text-gray-700 hover:bg-pink-100 hover:text-pink-600 font-medium transition">Giới Thiệu</a>
+                <a href="#features" class="mobile-link p-3 rounded-2xl text-gray-700 hover:bg-pink-100 hover:text-pink-600 font-medium transition">Tính Năng</a>
+                <a href="#pricing" class="mobile-link p-3 rounded-2xl text-gray-700 hover:bg-pink-100 hover:text-pink-600 font-medium transition">Gói DNS</a>
+                <a href="#faq" class="mobile-link p-3 rounded-2xl text-gray-700 hover:bg-pink-100 hover:text-pink-600 font-medium transition">FAQ</a>
+                <a href="#contact" class="mobile-link p-3 rounded-2xl text-gray-700 hover:bg-pink-100 hover:text-pink-600 font-medium transition">Liên Hệ</a>
+                <a href="#pricing" class="text-center py-3 rounded-2xl bg-gradient-to-r from-pink-400 to-rose-400 text-white font-bold text-sm shadow-md mt-2">Tải Cấu Hình</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-32 pb-20">
+        <section id="intro" class="container py-8 md:py-12">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="hero-item">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-pink-200 text-pink-500 text-xs font-bold uppercase mb-6 shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></span> Hệ thống thế hệ mới 2026
+                    </div>
+                    <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.2] text-gray-800">
+                        Chặn cảnh báo iCloud vay tiền<br>
+                        <span class="gradient-text">/ Bị lừa nhập iCloud lạ...</span>
+                    </h1>
+                    <p class="text-gray-600 text-base sm:text-lg mt-6 leading-relaxed">
+                        Thì nơi đây là giải pháp dành cho anh em. <strong class="text-pink-500">YounjDNS V4</strong>. 
+                        Giải mã định tuyến thông minh, tối ưu băng thông và chặn truy cập diện rộng. Tối ưu và mạnh mẽ hơn <span class="gradient-text font-bold">DNS V3 </span>✨
+                    </p>
+                    <div class="mt-6 glass rounded-3xl p-4 flex gap-4 items-start max-w-xl">
+                        <div class="w-12 h-12 rounded-2xl bg-orange-100 flex items-center justify-center text-orange-500 flex-shrink-0 shadow-sm">
+                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        </div>
+                        <div>
+                            <div class="text-orange-500 font-bold text-xs uppercase tracking-wider">Xây dựng trên Cloudflare</div>
+                            <p class="text-gray-500 text-xs mt-1">Hệ thống tối ưu trên Cloudflare Anycast toàn cầu, triệt tiêu lỗi phân giải, tốc độ phản hồi vượt bậc.</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 mt-8 pt-6 border-t border-pink-100 max-w-xl">
+                        <div class="text-center md:text-left"><div class="font-display font-bold text-3xl text-pink-500" id="stat1">0</div><div class="text-xs text-gray-500 font-medium">Độ Trễ Phản Hồi</div></div>
+                        <div class="text-center md:text-left"><div class="font-display font-bold text-3xl text-blue-500" id="stat2">0</div><div class="text-xs text-gray-500 font-medium">Uptime Cam Kết</div></div>
+                        <div class="text-center md:text-left"><div class="font-display font-bold text-3xl text-purple-500" id="stat3">0</div><div class="text-xs text-gray-500 font-medium">Active Profiles</div></div>
+                    </div>
+                    <div class="flex flex-wrap gap-4 mt-8">
+                        <a href="#pricing" class="btn-primary px-8 py-3.5 rounded-full font-bold text-sm text-white flex items-center gap-2">Sở hữu Cấu Hình Ngay <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                        <a href="#features" class="glass px-6 py-3.5 rounded-full font-semibold text-sm text-gray-700 hover:bg-pink-50 transition">Khám phá tính năng</a>
+                    </div>
+                </div>
+                <div class="hero-item">
+                    <div class="glass bg-white/80 rounded-[2rem] p-6 shadow-2xl border-2 border-pink-100">
+                        <div class="flex items-center justify-between pb-4 border-b border-pink-100">
+                            <div class="flex gap-2"><span class="w-3.5 h-3.5 rounded-full bg-red-400 shadow-sm"></span><span class="w-3.5 h-3.5 rounded-full bg-yellow-400 shadow-sm"></span><span class="w-3.5 h-3.5 rounded-full bg-green-400 shadow-sm"></span></div>
+                            <div class="text-xs text-gray-500 bg-white px-4 py-1.5 rounded-full font-mono shadow-sm border border-pink-50">younjdns-v4.conf</div>
+                            <i data-lucide="sliders" class="w-5 h-5 text-pink-400"></i>
+                        </div>
+                        <div class="space-y-4 mt-5">
+                            <div class="bg-white rounded-2xl p-4 flex justify-between items-center shadow-sm border border-pink-50">
+                                <div class="flex gap-3"><div class="w-12 h-12 rounded-2xl bg-pink-100 flex items-center justify-center"><i data-lucide="zap" class="w-6 h-6 text-pink-500"></i></div><div><div class="font-display text-sm font-bold text-gray-800">Chế độ phân giải</div><div id="modeText" class="text-xs text-gray-500 mt-0.5">Tiêu chuẩn (DNS Standard)</div></div></div>
+                                <button id="turboToggle" class="w-14 h-7 rounded-full bg-pink-400 p-1 flex items-center justify-end shadow-inner transition-colors duration-300"><span class="w-5 h-5 rounded-full bg-white shadow-md"></span></button>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-white rounded-2xl p-4 text-center shadow-sm border border-pink-50"><div class="text-xs text-gray-500 font-medium">Độ Trễ Toàn Cầu</div><div class="flex items-center justify-center gap-1.5 mt-2"><span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span><span id="livePing" class="font-display text-xl font-bold text-blue-500">11.2 ms</span></div></div>
+                                <div class="bg-white rounded-2xl p-4 text-center shadow-sm border border-pink-50"><div class="text-xs text-gray-500 font-medium">Bảo Mật Mã Hóa</div><span id="secureBadge" class="inline-block mt-2 px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-600 border border-green-200">DoH Active 🔒</span></div>
+                            </div>
+                            <div class="bg-pink-50/50 rounded-2xl p-4 border border-pink-100">
+                                <div class="flex justify-between items-center"><span class="text-xs font-bold text-gray-700">Tốc độ xử lý (req/s)</span><span class="text-[10px] text-pink-600 bg-pink-200 px-2.5 py-1 rounded-full font-bold shadow-sm">LIVE</span></div>
+                                <svg viewBox="0 0 300 50" class="w-full h-12 mt-2"><path d="M0,40 Q30,20 60,35 T120,15 T180,38 T240,12 T300,25 L300,50 L0,50 Z" fill="url(#gradChart)" opacity="0.4"/><path d="M0,40 Q30,20 60,35 T120,15 T180,38 T240,12 T300,25" fill="none" stroke="#ff7eb3" stroke-width="3" stroke-linecap="round"/><defs><linearGradient id="gradChart" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff7eb3"/><stop offset="100%" stop-color="#ff758c" stop-opacity="0"/></linearGradient></defs></svg>
+                            </div>
+                            <div class="flex justify-between items-center text-xs p-3 rounded-2xl bg-white shadow-sm border border-pink-50"><div class="flex gap-2 items-center"><i data-lucide="globe" class="w-4 h-4 text-pink-500"></i><span class="font-medium text-gray-700">Cloudflare VN Cluster</span></div><span class="text-green-500 font-mono font-bold bg-green-50 px-2 py-1 rounded-lg">99.98%</span></div>
+                            <div class="flex justify-between items-center text-xs p-3 rounded-2xl bg-white shadow-sm border border-pink-50"><div class="flex gap-2 items-center"><i data-lucide="shield-check" class="w-4 h-4 text-blue-500"></i><span class="font-medium text-gray-700">DNS SEC Engine</span></div><span class="text-blue-500 font-mono font-bold bg-blue-50 px-2 py-1 rounded-lg">Bật</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="container py-20">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-500 text-xs font-bold uppercase mb-4 shadow-sm">Đặc quyền công nghệ</div>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-gray-800">Tại sao Younj V4 tối ưu vượt bậc?</h2>
+                <p class="text-gray-600 mt-4 leading-relaxed">Cấu hình được tối ưu sâu vào thuật toán định tuyến, bảo vệ quyền riêng tư toàn diện. Đăng ký ngay để kích hoạt dịch vụ chặn cảnh báo iCloud liên tục. Hỗ trợ nhanh chóng!</p>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-[2rem] p-8 shadow-[0_8px_30px_rgba(255,182,193,0.2)] border border-pink-100 hover:translate-y-[-6px] transition-transform duration-300"><div class="w-14 h-14 rounded-2xl bg-pink-100 flex items-center justify-center mb-6 shadow-inner"><i data-lucide="gauge" class="w-7 h-7 text-pink-500"></i></div><h3 class="font-display text-lg font-bold text-gray-800 mb-3">Tốc độ phản hồi siêu tốc</h3><p class="text-sm text-gray-500">Định tuyến Anycast, ping dưới 12ms, tải trang cực mượt.</p><div class="mt-5 pt-4 border-t border-pink-50 text-[12px] text-pink-500 font-bold font-mono">⚡ Phân giải &lt;12ms</div></div>
+                <div class="bg-white rounded-[2rem] p-8 shadow-[0_8px_30px_rgba(255,182,193,0.2)] border border-pink-100 hover:translate-y-[-6px] transition-transform duration-300"><div class="w-14 h-14 rounded-2xl bg-purple-100 flex items-center justify-center mb-6 shadow-inner"><i data-lucide="shield-alert" class="w-7 h-7 text-purple-500"></i></div><h3 class="font-display text-lg font-bold text-gray-800 mb-3">Bảo mật tuyệt đối</h3><p class="text-sm text-gray-500">Mã hóa DoH/DoT, chống nghe lén, bảo vệ thông tin.</p><div class="mt-5 pt-4 border-t border-pink-50 text-[12px] text-purple-500 font-bold font-mono">🔒 Bảo mật DoH/DoT</div></div>
+                <div class="bg-white rounded-[2rem] p-8 shadow-[0_8px_30px_rgba(255,182,193,0.2)] border border-pink-100 hover:translate-y-[-6px] transition-transform duration-300"><div class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center mb-6 shadow-inner"><i data-lucide="unlock" class="w-7 h-7 text-blue-500"></i></div><h3 class="font-display text-lg font-bold text-gray-800 mb-3">Vượt tường lửa thông minh</h3><p class="text-sm text-gray-500">Xử lý tên miền bị giới hạn, tự do truy cập quốc tế.</p><div class="mt-5 pt-4 border-t border-pink-50 text-[12px] text-blue-500 font-bold font-mono">🌐 Chống chặn thông minh</div></div>
+                <div class="bg-white rounded-[2rem] p-8 shadow-[0_8px_30px_rgba(255,182,193,0.2)] border border-pink-100 hover:translate-y-[-6px] transition-transform duration-300"><div class="w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center mb-6 shadow-inner"><i data-lucide="cpu" class="w-7 h-7 text-orange-500"></i></div><h3 class="font-display text-lg font-bold text-gray-800 mb-3">Dễ cài đặt (1-Click)</h3><p class="text-sm text-gray-500">File profile nhẹ, không cần app, tiết kiệm pin & RAM.</p><div class="mt-5 pt-4 border-t border-pink-50 text-[12px] text-orange-500 font-bold font-mono">📱 iOS/Android/PC</div></div>
+            </div>
+        </section>
+
+        <section id="pricing" class="container py-20">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-pink-100 border border-pink-200 text-pink-600 text-xs font-bold uppercase mb-4 shadow-sm">Bảng giá dịch vụ</div>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-gray-800">Chọn gói cấu hình cho riêng bạn 💖</h2>
+            </div>
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-[2.5rem] p-8 sm:p-10 border border-pink-100 shadow-[0_10px_40px_rgba(255,182,193,0.15)] hover:scale-[1.02] transition-transform duration-300">
+                    <div class="flex justify-between items-start"><div><h3 class="font-display text-xl font-bold text-gray-800">Gói STANDARD</h3><p class="text-sm text-gray-500 mt-1">Cân bằng hàng ngày</p></div><span class="text-xs font-mono font-bold px-3 py-1.5 rounded-xl bg-gray-100 text-gray-600">DNS V4 Basic</span></div>
+                    <div class="my-8 pb-8 border-b border-pink-50"><span class="font-display text-5xl font-bold text-gray-800">10.000đ</span><span class="text-sm text-gray-500 font-medium"> / 3 Tháng</span><div class="text-sm font-bold text-pink-500 mt-2 bg-pink-50 inline-block px-3 py-1 rounded-full">Chỉ ~3k/tháng</div></div>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex gap-3 text-sm text-gray-700 font-medium"><div class="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center"><i data-lucide="check" class="w-3.5 h-3.5 text-green-500"></i></div>Hạ tầng Cloudflare Core</li>
+                        <li class="flex gap-3 text-sm text-gray-700 font-medium"><div class="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center"><i data-lucide="check" class="w-3.5 h-3.5 text-green-500"></i></div>Mã hóa DoH/DoT</li>
+                        <li class="flex gap-3 text-sm text-gray-700 font-medium"><div class="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center"><i data-lucide="check" class="w-3.5 h-3.5 text-green-500"></i></div>2 thiết bị cùng lúc</li>
+                        <li class="flex gap-3 text-sm text-gray-400 font-medium line-through"><div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center"><i data-lucide="x" class="w-3.5 h-3.5 text-gray-400"></i></div>IP ưu tiên đặc quyền</li>
+                    </ul>
+                    <button onclick="buyPackage('Standard', 10000)" class="w-full py-4 rounded-2xl bg-gray-50 border-2 border-pink-100 font-bold text-sm text-pink-500 hover:bg-pink-50 hover:border-pink-200 transition-colors shadow-sm">Mua & Tải Cấu Hình</button>
+                </div>
+                <div class="bg-white rounded-[2.5rem] p-8 sm:p-10 border-2 border-pink-300 shadow-[0_15px_50px_rgba(255,105,180,0.2)] relative transform md:-translate-y-2">
+                    <div class="absolute -top-4 right-8 bg-gradient-to-r from-pink-400 to-rose-400 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg shadow-pink-200 animate-bounce">Khuyến Nghị 🔥</div>
+                    <div class="flex justify-between items-start"><div><h3 class="font-display text-xl font-bold text-gray-800 flex items-center gap-2">Gói PRO PREMIUM <i data-lucide="sparkles" class="w-5 h-5 text-pink-400"></i></h3><p class="text-sm text-pink-500 font-semibold mt-1">Tối ưu gaming & cao cấp</p></div><span class="text-xs font-mono font-bold px-3 py-1.5 rounded-xl bg-pink-100 text-pink-600 border border-pink-200">DNS V4 Turbo</span></div>
+                    <div class="my-8 pb-8 border-b border-pink-100"><span class="font-display text-5xl font-bold text-gray-800">20.000đ</span><span class="text-sm text-gray-500 font-medium"> / 3 Tháng</span><div class="text-sm font-bold text-blue-500 mt-2 bg-blue-50 inline-block px-3 py-1 rounded-full">Tặng nâng cấp thuật toán trọn đời</div></div>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex gap-3 text-sm text-gray-800 font-bold"><div class="w-5 h-5 rounded-full bg-pink-100 flex items-center justify-center"><i data-lucide="check" class="w-3.5 h-3.5 text-pink-500"></i></div>Dải IP Ưu tiên High-Priority</li>
+                        <li class="flex gap-3 text-sm text-gray-700 font-medium"><div class="w-5 h-5 rounded-full bg-pink-100 flex items-center justify-center"><i data-lucide="check" class="w-3.5 h-3.5 text-pink-500"></i></div>Tối ưu Ping Game Quốc tế</li>
+                        <li class="flex gap-3 text-sm text-gray-700 font-medium"><div class="w-5 h-5 rounded-full bg-pink-100 flex items-center justify-center"><i data-lucide="check" class="w-3.5 h-3.5 text-pink-500"></i></div>Không giới hạn thiết bị</li>
+                        <li class="flex gap-3 text-sm text-gray-700 font-medium"><div class="w-5 h-5 rounded-full bg-pink-100 flex items-center justify-center"><i data-lucide="check" class="w-3.5 h-3.5 text-pink-500"></i></div>Hỗ trợ kỹ thuật 24/7</li>
+                    </ul>
+                    <button onclick="buyPackage('Pro', 20000)" class="w-full py-4 rounded-2xl bg-gradient-to-r from-pink-400 to-rose-400 font-bold text-sm text-white shadow-lg shadow-pink-200 hover:shadow-pink-300 hover:scale-[1.02] transition-all">Mua Gói Pro Ngay</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="container py-20 max-w-4xl mx-auto">
+            <div class="text-center mb-14"><div class="inline-block px-4 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-500 text-xs font-bold uppercase mb-4 shadow-sm">Giải đáp thắc mắc</div><h2 class="font-display text-3xl sm:text-4xl font-bold text-gray-800">Câu hỏi thường gặp 💡</h2></div>
+            <div class="space-y-4">
+                <div class="bg-white rounded-3xl shadow-sm border border-pink-100"><button class="faq-btn w-full px-6 py-5 text-left flex justify-between font-display font-bold text-gray-800 hover:text-pink-500 transition-colors"><span>Cài cấu hình này có làm máy hao pin hoặc nóng lên không?</span><i data-lucide="chevron-down" class="w-5 h-5 transition-transform text-pink-400"></i></button><div class="faq-ans max-h-0 opacity-0 overflow-hidden px-6"><p class="pb-5 text-sm text-gray-600 leading-relaxed">DNS V4 là cấu hình phân giải thông minh qua Cloudflare Anycast, giảm ping đáng kể, Hoàn toàn không bị hao pin. Cấu hình chỉ thay đổi một số định tuyến DNS rất nhỏ để chặn kết nối đến máy chủ khóa máy của Apple. Nó không chạy ngâm, không tiêu tốn tài nguyên CPU hay RAM, nên sẽ không ảnh hưởng đến thời lượng pin của bạn.</p></div></div>
+                <div class="bg-white rounded-3xl shadow-sm border border-pink-100"><button class="faq-btn w-full px-6 py-5 text-left flex justify-between font-display font-bold text-gray-800 hover:text-pink-500 transition-colors"><span>Tôi đang dùng VPN (1.1.1.1, Fake IP) thì có cài được không?</span><i data-lucide="chevron-down" class="w-5 h-5 text-pink-400"></i></button><div class="faq-ans max-h-0 opacity-0 overflow-hidden px-6"><p class="pb-5 text-sm text-gray-600 leading-relaxed">Bạn cần TẮT toàn bộ các ứng dụng VPN trước khi cài đặt và sử dụng cấu hình này. Việc dùng song song VPN có thể gây xung đột định tuyến khiến cấu hình chặn iCloud không hoạt động.</p></div></div>
+                <div class="bg-white rounded-3xl shadow-sm border border-pink-100"><button class="faq-btn w-full px-6 py-5 text-left flex justify-between font-display font-bold text-gray-800 hover:text-pink-500 transition-colors"><span>Số lượng thiết bị hỗ trợ?</span><i data-lucide="chevron-down" class="w-5 h-5 text-pink-400"></i></button><div class="faq-ans max-h-0 opacity-0 overflow-hidden px-6"><p class="pb-5 text-sm text-gray-600 leading-relaxed">Gói Standard: 1 thiết bị. Gói Pro Premium: không giới hạn thiết bị mà bạn muốn sử dụng.</p></div></div>
+            </div>
+        </section>
+
+        <section id="contact" class="container py-20">
+            <div class="glass rounded-[3rem] p-8 md:p-12 bg-white max-w-5xl mx-auto border-2 border-pink-100">
+                <div class="grid md:grid-cols-2 gap-10 items-center">
+                    <div class="text-center md:text-left"><h2 class="font-display text-3xl md:text-4xl font-bold text-gray-800">Cần hỗ trợ trực tiếp? 💌</h2><p class="text-base text-gray-600 mt-3"> YounjDNS (Younj iCloud) luôn trực tuyến giải đáp mọi thắc mắc của bạn với sự nhiệt tình nhất!</p></div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <a href="https://t.me/younj_icloud" target="_blank" class="bg-blue-50/50 rounded-3xl p-5 flex flex-col items-center gap-3 border border-blue-100 hover:bg-blue-50 hover:-translate-y-1 transition-all"><div class="w-12 h-12 rounded-full bg-[#26A5E4]/20 flex items-center justify-center text-[#26A5E4]"><svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg></div><div class="text-center"><p class="font-bold text-sm text-gray-800">Telegram</p><span class="text-xs text-gray-500 font-medium">Rep nhanh !</span></div></a>
+                        <a href="https://zalo.me/0981309921" target="_blank" class="bg-blue-50/50 rounded-3xl p-5 flex flex-col items-center gap-3 border border-blue-100 hover:bg-blue-50 hover:-translate-y-1 transition-all"><div class="w-12 h-12 rounded-full bg-[#0068FF]/20 flex items-center justify-center text-[#0068FF] font-black text-sm">ZALO</div><div class="text-center"><p class="font-bold text-sm text-gray-800">Zalo Admin</p><span class="text-xs text-gray-500 font-medium">Siêu tốc</span></div></a>
+                        <a href="https://www.facebook.com/share/1H3DaxHZJa/?mibextid=wwXIfr" target="_blank" class="bg-blue-50/50 rounded-3xl p-5 flex flex-col items-center gap-3 border border-blue-100 hover:bg-blue-50 hover:-translate-y-1 transition-all"><div class="w-12 h-12 rounded-full bg-[#1877F2]/20 flex items-center justify-center text-[#1877F2]"><svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg></div><div class="text-center"><p class="font-bold text-sm text-gray-800">Facebook</p><span class="text-xs text-gray-500 font-medium">Follow me</span></div></a>
+                        <a href="mailto:younjnosupport@proton.me" class="bg-cyan-50/50 rounded-3xl p-5 flex flex-col items-center gap-3 border border-cyan-100 hover:bg-cyan-50 hover:-translate-y-1 transition-all"><div class="w-12 h-12 rounded-full bg-cyan-100 flex items-center justify-center text-cyan-500"><i data-lucide="mail" class="w-6 h-6"></i></div><div class="text-center"><p class="font-bold text-sm text-gray-800">Email</p><span class="text-xs text-gray-500 font-medium">Hợp tác</span></div></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-pink-200 py-8 text-center text-sm text-gray-500 font-medium">
+        <div class="container flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2"><span class="font-display font-bold text-gray-800">YounjDNS<span class="text-pink-500">V4</span></span><span class="text-pink-200">|</span><span>&copy; 2026 YounjDNS Engine 🎀</span></div>
+            <div class="flex gap-6"><a href="#intro" class="hover:text-pink-500 transition-colors">Điều khoản</a><a href="#features" class="hover:text-pink-500 transition-colors">Bảo mật</a><a href="#pricing" class="hover:text-pink-500 transition-colors">API</a></div>
+        </div>
+    </footer>
+
+    <script>
+        // Khởi tạo Lucide
+        lucide.createIcons();
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) header.classList.add('py-2', 'backdrop-blur-lg', 'bg-white/80', 'shadow-sm');
+            else header.classList.remove('py-2', 'backdrop-blur-lg', 'bg-white/80', 'shadow-sm');
+        });
+
+        // Mobile menu
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // Dashboard Turbo toggle
+        let turbo = false;
+        const toggle = document.getElementById('turboToggle');
+        const modeText = document.getElementById('modeText');
+        const livePing = document.getElementById('livePing');
+        const secureBadge = document.getElementById('secureBadge');
+        toggle.addEventListener('click', () => {
+            turbo = !turbo;
+            if (turbo) {
+                toggle.classList.remove('justify-end');
+                toggle.classList.add('justify-start');
+                toggle.style.backgroundColor = '#3b82f6'; // blue-500
+                modeText.innerText = 'Turbo V4 Activated! 🚀';
+                modeText.classList.add('text-blue-500', 'font-bold');
+                modeText.classList.remove('text-gray-500');
+                anime({ targets: '#livePing', innerHTML: [11.2, 4.8], round: 10, duration: 800, formatter: (v) => v.toFixed(1) + ' ms' });
+                secureBadge.innerText = 'DoH+DoT Max 🛡️';
+                secureBadge.className = 'inline-block mt-2 px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-600 border border-blue-200';
+            } else {
+                toggle.classList.remove('justify-start');
+                toggle.classList.add('justify-end');
+                toggle.style.backgroundColor = '#f472b6'; // pink-400
+                modeText.innerText = 'Tiêu chuẩn (DNS Standard)';
+                modeText.classList.remove('text-blue-500', 'font-bold');
+                modeText.classList.add('text-gray-500');
+                anime({ targets: '#livePing', innerHTML: [4.8, 11.2], round: 10, duration: 600, formatter: (v) => v.toFixed(1) + ' ms' });
+                secureBadge.innerText = 'DoH Active 🔒';
+                secureBadge.className = 'inline-block mt-2 px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-600 border border-green-200';
+            }
+        });
+
+        // Counter animation
+        anime({ targets: '#stat1', innerHTML: [0, 12], round: 1, duration: 2000, easing: 'easeOutExpo', update: (anim) => { document.getElementById('stat1').innerHTML = '< ' + Math.round(anim.animations[0].currentValue) + 'ms'; } });
+        anime({ targets: '#stat2', innerHTML: [0, 99.9], round: 1, duration: 2200, easing: 'easeOutExpo', update: (anim) => { document.getElementById('stat2').innerHTML = anim.animations[0].currentValue.toFixed(1) + '%'; } });
+        anime({ targets: '#stat3', innerHTML: [0, 15420], round: 1, duration: 2500, easing: 'easeOutExpo', update: (anim) => { document.getElementById('stat3').innerHTML = Math.round(anim.animations[0].currentValue).toLocaleString() + '+'; } });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const ans = btn.nextElementSibling;
+                const icon = btn.querySelector('[data-lucide="chevron-down"]');
+                const isOpen = !ans.classList.contains('max-h-0');
+                document.querySelectorAll('.faq-ans').forEach(a => { a.classList.add('max-h-0', 'opacity-0'); a.style.maxHeight = null; });
+                document.querySelectorAll('.faq-btn i').forEach(i => i.style.transform = 'rotate(0deg)');
+                if (!isOpen) {
+                    ans.classList.remove('max-h-0', 'opacity-0');
+                    ans.style.maxHeight = ans.scrollHeight + 'px';
+                    ans.classList.add('opacity-100');
+                    if (icon) icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+
+        // Hero reveal animation
+        anime({ targets: '.hero-item', opacity: [0, 1], translateY: [40, 0], delay: anime.stagger(200), duration: 1000, easing: 'easeOutQuad' });
+
+// ==================== CẤU HÌNH HỆ THỐNG THANH TOÁN ====================
+// Thông tin ngân hàng của bạn
+const MY_BANK_ID = 'MB'; // Tên ngân hàng (MB, VCB, ACB...)
+const MY_ACCOUNT_NO = '150313'; // Số tài khoản của bạn
+const MY_ACCOUNT_NAME = 'KHONG MANH YEN'; 
+
+// Khởi tạo Pusher (Dùng PUSHER_KEY public)
+const pusher = new Pusher('11c123b595113002facf', {
+    cluster: 'ap2'
+});
+
+// --- HÀM TẠO TOAST THÔNG BÁO SAO CHÉP (CUTE STYLE) ---
+window.copyToClipboard = (text, message) => {
+    navigator.clipboard.writeText(text).then(() => {
+        const existingToast = document.getElementById('neko-toast');
+        if (existingToast) existingToast.remove();
+
+        const toast = document.createElement('div');
+        toast.id = 'neko-toast';
+        // Đổi giao diện Toast sang sáng sủa, đáng yêu
+        toast.className = 'fixed top-10 right-5 md:right-10 z-[9999] px-5 py-3.5 rounded-2xl bg-white/95 backdrop-blur-md border border-pink-200 text-pink-600 shadow-[0_10px_25px_rgba(255,182,193,0.4)] flex items-center gap-3 transform translate-x-20 opacity-0 transition-all duration-300 font-sans text-sm font-bold';
+        
+        toast.innerHTML = `
+            <div class="w-6 h-6 rounded-full bg-pink-100 flex items-center justify-center">
+                <svg class="w-4 h-4 text-pink-500" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            ${message}
+        `;
+        
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+            toast.classList.remove('translate-x-20', 'opacity-0');
+        }, 10);
+
+        setTimeout(() => {
+            toast.classList.add('translate-x-20', 'opacity-0');
+            setTimeout(() => toast.remove(), 300);
+        }, 2000);
+    });
+};
+
+// --- HÀM XỬ LÝ THANH TOÁN ---
+window.buyPackage = (name, amount) => {
+    // 1. Tạo mã đơn hàng ngẫu nhiên (Ví dụ: NEKO84729)
+    const orderId = 'NEKO' + Math.floor(10000 + Math.random() * 90000);
+    
+    // 2. Tạo link QR bằng SePay API
+    const qrUrl = `https://qr.sepay.vn/img?bank=${MY_BANK_ID}&acc=${MY_ACCOUNT_NO}&amount=${amount}&des=${encodeURIComponent(orderId)}`;
+
+    // Định dạng hiển thị số tiền (VD: 20.000đ)
+    const formattedAmount = new Intl.NumberFormat('vi-VN').format(amount) + 'đ';
+
+    // Đánh dấu trạng thái đơn hàng để kiểm soát việc hủy luồng Pusher
+    let isPaid = false; 
+
+    // 3. Hiển thị Popup QR Code thiết kế Cute & Premium
+    Swal.fire({
+        title: `<div class="text-xl font-bold font-display tracking-wide text-pink-500">XÁC THỰC THANH TOÁN 🎀</div>`,
+        html: `
+            <div class="text-left font-sans text-gray-700">
+                <div class="mb-5 p-4 rounded-2xl bg-gradient-to-r from-pink-50 to-rose-50 border border-pink-200 flex justify-between items-center shadow-sm">
+                    <span class="text-sm text-gray-500 font-medium">Gói dịch vụ:</span>
+                    <span class="text-base font-bold text-pink-500 font-display">${name.toUpperCase()}</span>
+                </div>
+
+                <div class="space-y-3 mb-6 bg-white p-5 rounded-3xl border border-pink-100 shadow-sm font-medium text-sm">
+                    
+                    <div class="flex justify-between items-center py-1.5 border-b border-pink-50">
+                        <span class="text-gray-500">Ngân hàng:</span>
+                        <span class="font-bold text-blue-500">MB BANK (Quân Đội)</span>
+                    </div>
+
+                    <div class="flex justify-between items-center py-1.5 border-b border-pink-50">
+                        <span class="text-gray-500">Chủ tài khoản:</span>
+                        <span class="font-bold text-gray-800">${MY_ACCOUNT_NAME}</span>
+                    </div>
+
+                    <div class="flex justify-between items-center py-1.5 border-b border-pink-50">
+                        <span class="text-gray-500">Số tài khoản:</span>
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-gray-800 select-all text-base">${MY_ACCOUNT_NO}</span>
+                            <button onclick="copyToClipboard('${MY_ACCOUNT_NO}', 'Đã sao chép Số tài khoản! 🌸')" class="p-1.5 rounded-lg bg-pink-50 text-pink-500 hover:bg-pink-500 hover:text-white transition cursor-pointer active:scale-90 shadow-sm">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 7V3a1 1 0 011-1h10a1 1 0 011 1v12a1 1 0 01-1 1h-4M4 11v10a1 1 0 001 1h10a1 1 0 001-1V11a1 1 0 00-1-1H5a1 1 0 00-1 1z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center py-1.5 border-b border-pink-50">
+                        <span class="text-gray-500">Số tiền:</span>
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-rose-500 text-base">${formattedAmount}</span>
+                            <button onclick="copyToClipboard('${amount}', 'Đã sao chép Số tiền! 🌸')" class="p-1.5 rounded-lg bg-pink-50 text-pink-500 hover:bg-pink-500 hover:text-white transition cursor-pointer active:scale-90 shadow-sm">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 7V3a1 1 0 011-1h10a1 1 0 011 1v12a1 1 0 01-1 1h-4M4 11v10a1 1 0 001 1h10a1 1 0 001-1V11a1 1 0 00-1-1H5a1 1 0 00-1 1z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center py-1.5 bg-pink-50 p-3 rounded-2xl border border-pink-200 mt-2">
+                        <span class="text-pink-600 font-sans font-semibold">Nội dung ghi chú:</span>
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-pink-500 select-all tracking-wider text-base">${orderId}</span>
+                            <button onclick="copyToClipboard('${orderId}', 'Đã sao chép Nội dung! 🌸')" class="p-1.5 rounded-xl bg-pink-500 text-white hover:bg-pink-600 transition shadow-md cursor-pointer active:scale-90">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M8 7V3a1 1 0 011-1h10a1 1 0 011 1v12a1 1 0 01-1 1h-4M4 11v10a1 1 0 001 1h10a1 1 0 001-1V11a1 1 0 00-1-1H5a1 1 0 00-1 1z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="relative group my-6 flex justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-pink-300 to-purple-300 rounded-3xl blur-lg opacity-40 group-hover:opacity-60 transition duration-500 max-w-[240px] mx-auto"></div>
+                    <img src="${qrUrl}" class="relative mx-auto rounded-3xl border-4 border-white shadow-[0_15px_35px_rgba(255,182,193,0.4)] w-56 p-2 bg-white transition duration-300 hover:scale-[1.03] hover:rotate-1" alt="QR Code SePay">
+                </div>
+
+                <div class="mt-5 flex items-center justify-center gap-3 text-xs text-gray-500 bg-pink-50 p-3.5 rounded-2xl border border-pink-100">
+                    <div class="w-2.5 h-2.5 rounded-full bg-pink-400 animate-ping"></div>
+                    <span class="animate-pulse font-medium">Đang quét tìm giao dịch tự động... Vui lòng không tắt popup nha.</span>
+                </div>
+            </div>
+        `,
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        showCloseButton: true,
+        background: '#ffffff',
+        customClass: {
+            popup: 'rounded-[2.5rem] border border-pink-100 shadow-[0_20px_60px_rgba(255,182,193,0.3)]',
+            closeButton: 'text-gray-400 hover:text-pink-500 bg-gray-50 hover:bg-pink-50 rounded-full m-2 transition focus:shadow-none'
+        },
+        // Tự động hủy lắng nghe Pusher khi người dùng chủ động bấm "X" tắt popup QR
+        didClose: () => {
+            if (!isPaid) {
+                pusher.unsubscribe(orderId);
+                console.log(`[Pusher] Đã hủy kết nối ngầm của đơn hàng hủy bỏ: ${orderId}`);
+            }
+        }
+    });
+
+    // 4. Lắng nghe Webhook phản hồi qua Pusher từ Vercel Backend
+    const channel = pusher.subscribe(orderId);
+    channel.bind('payment-success', function(data) {
+        // Đánh dấu đã thanh toán thành công để tránh hàm didClose phía trên kích hoạt nhầm
+        isPaid = true; 
+
+        Swal.fire({
+            icon: 'success',
+            iconColor: '#34d399',
+            title: `<div class="text-2xl font-bold font-display text-green-500 mt-2">THANH TOÁN THÀNH CÔNG! 🎉</div>`,
+            background: '#ffffff',
+            html: `
+                <div class="text-sm text-gray-600 font-sans mt-2 leading-relaxed">
+                    Hệ thống đã ghi nhận cổng thanh toán thành công cho đơn hàng <strong class="text-pink-500">${orderId}</strong>.<br>
+                    Cấu hình <strong class="text-gray-800">${data.packageName || name}</strong> đã sẵn sàng để khởi chạy trên thiết bị của bạn.
+                </div>
+            `,
+            confirmButtonText: 'Tải File Cấu Hình Ngay 💖',
+            confirmButtonColor: '#ff7eb3',
+            allowOutsideClick: false,
+            customClass: {
+                popup: 'rounded-[2.5rem] border-2 border-green-100 shadow-[0_20px_50px_rgba(52,211,153,0.2)]',
+                confirmButton: 'w-full py-3.5 px-6 rounded-2xl font-bold text-sm text-white shadow-lg shadow-pink-200 hover:shadow-pink-300 hover:scale-[1.02] transition-all'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Nhận trực tiếp downloadUrl tương ứng với từng gói từ Backend trả về
+                window.location.href = data.downloadUrl;
+                pusher.unsubscribe(orderId);
+            }
+        });
+    });
+};
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TikTok Vibe IPA - Younj OS</title>
+    <!-- SEO -->
+<meta name="description" content="Tải TikTok Vibe IPA miễn phí - phiên bản Premium, không quảng cáo, tương thích iOS 15+. Hỗ trợ TrollStore, AltStore, ESign.">
+<meta name="keywords" content="TikTok IPA, TikTok Vibe, tiktok premium ios, download tiktok ipa, younj os, trollstore">
+<meta name="author" content="Younj OS">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://younj.io.vn/">
+
+<!-- Open Graph (Facebook, Messenger, Zalo...) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://younj.io.vn/">
+<meta property="og:title" content="TikTok Vibe IPA - Younj OS">
+<meta property="og:description" content="Tải ngay TikTok Vibe IPA miễn phí, Premium Unlocked, không quảng cáo, an toàn.">
+<meta property="og:image" content="https://i.imgur.com/BILR4BC.png"> <!-- chọn ảnh đại diện đẹp -->
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="Younj OS">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://younj.io.vn/">
+<meta name="twitter:title" content="TikTok Vibe IPA - Younj OS">
+<meta name="twitter:description" content="Tải ngay TikTok Vibe IPA miễn phí, Premium Unlocked.">
+<meta name="twitter:image" content="https://i.imgur.com/BILR4BC.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="TikTok Vibe">
+<link rel="apple-touch-icon" href="icon-192.png">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==========================================================================
+           VARIABLES & RESET
+           ========================================================================== */
+        :root {
+            --bg: #f4f5f7;
+            --surface: rgba(255, 255, 255, 0.7);
+            --surface-solid: #ffffff;
+            --primary: #00c16a;
+            --primary-dark: #00995f;
+            --text-main: #1d1d1f;
+            --text-muted: #86868b;
+            --glass-border: 1px solid rgba(255, 255, 255, 0.6);
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.04);
+            --radius-xl: 28px;
+            --radius-lg: 22px;
+            --radius-md: 16px;
+            --spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --ease: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            background-color: #e5e5e5;
+            color: var(--text-main);
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        /* ==========================================================================
+           APP CONTAINER
+           ========================================================================== */
+        #app {
+            width: 100%;
+            max-width: 430px;
+            min-height: 100vh;
+            background: var(--bg);
+            position: relative;
+            overflow-x: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(255,255,255,0.8) 0%, transparent 50%),
+                url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.03"/%3E%3C/svg%3E');
+        }
+
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            transform-origin: left;
+            transform: scaleX(0);
+            z-index: 9999;
+            max-width: 430px;
+        }
+
+        /* ==========================================================================
+           TOP BAR & HEADER
+           ========================================================================== */
+        .top-bar {
+            position: sticky;
+            top: 20px;
+            margin: 0 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(25px) saturate(200%);
+            -webkit-backdrop-filter: blur(25px) saturate(200%);
+            border: var(--glass-border);
+            border-radius: 40px;
+            padding: 15px 20px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text-main);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+        }
+
+        .header {
+            padding: 30px 24px 20px;
+            text-align: left;
+        }
+        .header .subtitle {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .header h1 {
+            font-size: 36px;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #1d1d1f, #434345);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ==========================================================================
+           SEGMENTED CONTROL
+           ========================================================================== */
+        .segment-container {
+            margin: 0 24px 25px;
+            background: rgba(220, 220, 225, 0.5);
+            border-radius: var(--radius-lg);
+            padding: 4px;
+            display: flex;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+        .segment-indicator {
+            position: absolute;
+            top: 4px;
+            bottom: 4px;
+            width: calc(50% - 4px);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 18px;
+            box-shadow: 0 4px 15px rgba(0, 193, 106, 0.3);
+            transition: transform 0.4s var(--spring);
+            z-index: 1;
+        }
+        .segment-btn {
+            flex: 1;
+            padding: 12px 0;
+            text-align: center;
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--text-muted);
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .segment-btn.active { color: #fff; }
+
+        .tab-view {
+            display: none;
+            padding: 0 24px 160px;
+            animation: fadeIn 0.4s var(--ease);
+        }
+        .tab-view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ==========================================================================
+           GLASS CARDS & LISTS
+           ========================================================================== */
+        .glass-card {
+            background: var(--surface);
+            backdrop-filter: blur(25px) saturate(200%);
+            -webkit-backdrop-filter: blur(25px) saturate(200%);
+            border: var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+        }
+        .glass-card:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08); }
+
+        /* Premium Highlight Border Card */
+        .premium-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(240, 253, 244, 0.8));
+            border: 1px solid rgba(0, 193, 106, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 193, 106, 0.06);
+        }
+        .premium-card::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 193, 106, 0.1), transparent);
+            transform: rotate(45deg); animation: premiumGlow 4s infinite linear; pointer-events: none;
+        }
+        @keyframes premiumGlow { 0% { transform: translate(-30%, -30%) rotate(45deg); } 100% { transform: translate(30%, 30%) rotate(45deg); } }
+
+        .latest-version { display: flex; align-items: center; gap: 16px; border: 1px solid rgba(0, 193, 106, 0.2); }
+        .icon-box {
+            width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: var(--radius-md); display: flex; justify-content: center; align-items: center;
+            color: white; font-size: 28px; box-shadow: 0 8px 20px rgba(0, 193, 106, 0.3);
+        }
+        .latest-info { flex: 1; }
+        .latest-info h3 { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+        .latest-info p { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+        .badge-free {
+            background: rgba(0, 193, 106, 0.1); color: var(--primary-dark);
+            padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; text-transform: uppercase;
+        }
+
+        .info-list { list-style: none; }
+        .info-list li { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 14px; }
+        .info-list li:last-child { border-bottom: none; padding-bottom: 0; }
+        .info-list li span:first-child { color: var(--text-muted); font-weight: 500; }
+        .info-list li span:last-child { font-weight: 600; color: var(--text-main); }
+        .feature-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; font-weight: 600; font-size: 15px; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .feature-item i { color: var(--primary); font-size: 18px; }
+
+        /* ==========================================================================
+           SCREENSHOTS PREVIEW
+           ========================================================================== */
+        .preview-section-title { font-size: 18px; font-weight: 700; margin: 30px 0 15px; display: flex; justify-content: space-between; align-items: center; }
+        
+        .screenshots-container {
+            display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory;
+            padding: 10px 10px 50px 10px; margin-left: -10px; margin-right: -10px;
+            -ms-overflow-style: none; scrollbar-width: none;  
+        }
+        .screenshots-container::-webkit-scrollbar { display: none; }
+        
+        .screenshot-wrapper { scroll-snap-align: center; position: relative; perspective: 1000px; }
+
+        .screenshot {
+            width: 170px; height: 368px; border-radius: 24px; background: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); background-size: cover; background-position: center;
+            cursor: pointer; transition: all 0.4s var(--spring); border: 1px solid rgba(255,255,255,0.4);
+            position: relative; z-index: 2;
+        }
+        .screenshot-wrapper:nth-child(1) .screenshot { background-image: url('https://i.imgur.com/BILR4BC.png'); }
+        .screenshot-wrapper:nth-child(2) .screenshot { background-image: url('https://i.imgur.com/coLWn64.png'); }
+        .screenshot-wrapper:nth-child(3) .screenshot { background-image: url('https://i.imgur.com/vxmmmiQ.png'); }
+.screenshot-wrapper:nth-child(4) .screenshot { background-image: url('https://i.imgur.com/aUlEbRH.png'); }
+.screenshot-wrapper:nth-child(5) .screenshot { background-image: url('https://i.imgur.com/rDWFfvS.png'); }
+.screenshot-wrapper:nth-child(6) .screenshot { background-image: url('https://i.imgur.com/dtVf2Ub.png'); }
+.screenshot-wrapper:nth-child(7) .screenshot { background-image: url('https://i.imgur.com/69MrGTv.png'); }
+.screenshot-wrapper:nth-child(8) .screenshot { background-image: url('https://i.imgur.com/zJjf1yM.png'); }
+        .screenshot-wrapper:nth-child(9) .screenshot { background-image: url('https://i.imgur.com/DaJeAwn.png'); }
+        .screenshot-wrapper:hover .screenshot {
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 193, 106, 0.4), 0 0 20px rgba(0, 193, 106, 0.2); 
+            border-color: rgba(0, 193, 106, 0.5);
+        }
+
+        .screenshot::after { 
+            content: ''; position: absolute; bottom: -40px; left: 0; width: 100%; height: 40px;
+            background: inherit; background-size: cover; background-position: bottom;
+            filter: blur(8px); opacity: 0.4; transform: scaleY(-1); border-radius: 24px;
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+            transition: all 0.4s var(--spring); z-index: 1;
+        }
+        .screenshot-wrapper:hover .screenshot::after { opacity: 0.6; bottom: -50px; filter: blur(12px); }
+
+        /* Fullscreen Modal */
+        #fullscreen-modal {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); z-index: 99999;
+            display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none;
+        }
+        #fullscreen-img {
+            max-width: 85%; max-height: 85%; border-radius: 32px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 40px rgba(0, 193, 106, 0.3);
+            object-fit: contain; transform: scale(0.8) translateY(50px);
+        }
+        #close-fullscreen {
+            position: absolute; top: 30px; right: 30px; width: 44px; height: 44px;
+            border-radius: 50%; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1); color: white; font-size: 20px; display: flex;
+            align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s var(--ease);
+        }
+        #close-fullscreen:hover { background: rgba(255,255,255,0.4); transform: scale(1.1); }
+
+        /* ==========================================================================
+           DEVELOPER, TABS & BUTTONS
+           ========================================================================== */
+        .dev-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+        .dev-avatar { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #FF9A9E, #FECFEF); display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; box-shadow: 0 5px 15px rgba(255, 154, 158, 0.4); }
+        .social-buttons { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .social-btn { padding: 12px; border-radius: var(--radius-md); background: rgba(255,255,255,0.8); border: 1px solid rgba(0,0,0,0.05); text-align: center; font-weight: 600; font-size: 13px; color: var(--text-main); text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s var(--ease); }
+        .social-btn:hover { background: var(--surface-solid); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+
+        /* Direct Contact Button style */
+        .contact-buy-btn {
+            width: 100%; background: linear-gradient(135deg, #0088cc, #0072a3); color: white;
+            border: none; padding: 14px; border-radius: var(--radius-md); font-size: 15px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;
+            box-shadow: 0 8px 20px rgba(0, 136, 204, 0.25); transition: all 0.3s var(--ease); margin-top: 15px;
+        }
+        .contact-buy-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(0, 136, 204, 0.35); }
+
+        .counter-box { text-align: center; padding: 30px 20px; }
+        .counter-box i { font-size: 32px; color: var(--primary); margin-bottom: 12px; }
+        .count-number { font-size: 36px; font-weight: 900; color: var(--text-main); line-height: 1; }
+        .count-label { font-size: 13px; color: var(--text-muted); font-weight: 600; margin-top: 5px; }
+
+        .bottom-action-area {
+            position: fixed; bottom: 0; width: 100%; max-width: 430px; z-index: 100;
+            padding: 0 20px 20px; background: linear-gradient(to top, rgba(244,245,247,1) 0%, rgba(244,245,247,0) 100%); pointer-events: none;
+        }
+        
+        .main-download-btn {
+            width: 100%; pointer-events: auto; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white; border: none; padding: 20px; border-radius: 30px; font-size: 18px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: 0 15px 35px rgba(0, 193, 106, 0.4);
+            cursor: pointer; position: relative; overflow: hidden; transition: all 0.4s var(--spring); margin-bottom: 20px;
+        }
+        .main-download-btn:hover { transform: scale(1.02); box-shadow: 0 20px 40px rgba(0, 193, 106, 0.5); }
+        .main-download-btn:active { transform: scale(0.96); }
+        .main-download-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-20deg); animation: shine 3s infinite;
+        }
+        @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
+
+        .tab-bar {
+            pointer-events: auto; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(25px) saturate(200%); -webkit-backdrop-filter: blur(25px) saturate(200%);
+            border: var(--glass-border); border-radius: 35px; display: flex; justify-content: space-between; padding: 10px 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        .tab-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-muted); font-size: 10px; font-weight: 600; cursor: pointer; width: 60px; transition: color 0.3s; }
+        .tab-item i { font-size: 20px; transition: transform 0.3s var(--spring); }
+        .tab-item.active { color: var(--primary); }
+        .tab-item.active i { transform: scale(1.15) translateY(-2px); }
+
+        /* ==========================================================================
+           DOWNLOAD POPUP
+           ========================================================================== */
+        .popup-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(244, 245, 247, 0.4);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 1000;
+            display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease);
+        }
+        .popup-overlay.active { opacity: 1; pointer-events: auto; }
+        .popup-card {
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); border: var(--glass-border);
+            border-radius: var(--radius-xl); padding: 30px; width: 85%; max-width: 360px; box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            text-align: center; transform: scale(0.9) translateY(20px); transition: transform 0.5s var(--spring);
+        }
+        .popup-overlay.active .popup-card { transform: scale(1) translateY(0); }
+        
+        .popup-circle { width: 80px; height: 80px; margin: 0 auto 20px; position: relative; display: flex; align-items: center; justify-content: center; }
+        .popup-circle svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+        .popup-circle circle { fill: none; stroke-width: 6; stroke-linecap: round; }
+        .circle-bg { stroke: #f0f0f0; }
+        .circle-progress { stroke: var(--primary); stroke-dasharray: 220; stroke-dashoffset: 0; transition: stroke-dashoffset 1s linear; }
+        .countdown-text { position: absolute; font-size: 28px; font-weight: 800; color: var(--primary); }
+        .popup-title { font-size: 20px; font-weight: 800; margin-bottom: 5px; }
+        .popup-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+        .popup-details { background: rgba(0,0,0,0.03); border-radius: var(--radius-md); padding: 15px; text-align: left; }
+        .btn-locked { background: #d1d1d6 !important; box-shadow: none !important; cursor: not-allowed; color: #86868b !important; }
+        .btn-locked::before { display: none; }
+
+        /* ==========================================================================
+           ABOUT / DONATE BOTTOM SHEET
+           ========================================================================== */
+        .bottom-sheet-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            z-index: 999999; display: flex; align-items: flex-end; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease);
+        }
+        .bottom-sheet-overlay.active { opacity: 1; pointer-events: auto; }
+        
+        .bottom-sheet {
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            width: 100%; max-width: 430px; border-radius: 35px 35px 0 0; padding: 20px 24px 40px;
+            box-shadow: 0 -15px 40px rgba(0,0,0,0.15); transform: translateY(100%); transition: transform 0.5s var(--spring);
+        }
+        .bottom-sheet-overlay.active .bottom-sheet { transform: translateY(0); }
+        
+        .sheet-drag-handle { width: 40px; height: 5px; background: #d1d1d6; border-radius: 10px; margin: 0 auto 20px; }
+        
+        .donate-box {
+            background: linear-gradient(135deg, rgba(0, 193, 106, 0.05), rgba(0, 193, 106, 0.15));
+            border: 1px solid rgba(0, 193, 106, 0.2); border-radius: 20px; padding: 20px; margin-top: 20px;
+        }
+        .bank-info-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 14px; }
+        .bank-info-row span:first-child { color: var(--text-muted); font-weight: 500; }
+        .bank-info-row span:last-child { font-weight: 700; color: var(--text-main); }
+        
+        .account-number-box {
+            background: rgba(255, 255, 255, 0.8); border-radius: 14px; padding: 12px 16px;
+            display: flex; justify-content: space-between; align-items: center; margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05);
+        }
+        .acc-number { font-size: 20px; font-weight: 900; letter-spacing: 1px; color: var(--primary-dark); }
+        .copy-btn {
+            background: var(--primary); color: white; border: none; padding: 8px 16px;
+            border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer;
+            display: flex; align-items: center; gap: 6px; transition: all 0.3s ease;
+        }
+        .copy-btn:active { transform: scale(0.95); }
+        .copy-btn.copied { background: var(--text-main); }
+
+        /* FX */
+        #fx-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; overflow: hidden; max-width: 430px; margin: 0 auto; left: 50%; transform: translateX(-50%); }
+        .heart { position: absolute; color: #ff2d55; font-size: 20px; pointer-events: none; animation: floatUp 1s ease-out forwards; }
+        @keyframes floatUp { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-50px) scale(1.5); } }
+        .snowflake { position: absolute; top: -10px; background: white; border-radius: 50%; opacity: 0.6; pointer-events: none; }
+        @keyframes snowfall { to { transform: translateY(100vh) translateX(20px); } }
+/* ==========================================================================
+   TOP BAR NÂNG CẤP
+   ========================================================================== */
+.top-bar {
+    position: sticky;
+    top: 20px;
+    margin: 0 20px;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    border: var(--glass-border);
+    border-radius: 40px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+    transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1), opacity 0.3s ease;
+}
+
+.top-bar-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.top-bar-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text-main);
+    flex: 1;
+    text-align: left;
+}
+
+.new-update-tag {
+    background: linear-gradient(135deg, #FF3B30, #FF2D55);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(255, 59, 48, 0.3);
+    animation: pulse-tag 2s infinite;
+}
+
+@keyframes pulse-tag {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Trạng thái ẩn khi cuộn xuống */
+.top-bar.hidden {
+    transform: translateY(-150%);
+    opacity: 0;
+    pointer-events: none;
+}
+/* ==========================================================================
+   CHANGELOG / VERSION HISTORY
+   ========================================================================== */
+.changelog-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 5px;
+}
+.changelog-item {
+    border-left: 2px solid rgba(0, 193, 106, 0.2);
+    padding-left: 18px;
+    position: relative;
+}
+.changelog-item::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    box-shadow: 0 0 10px rgba(0, 193, 106, 0.4);
+}
+/* Làm mờ các phiên bản cũ */
+.changelog-item.old-version {
+    opacity: 0.6;
+    border-color: rgba(0, 0, 0, 0.1);
+}
+.changelog-item.old-version::before {
+    background: #d1d1d6;
+    box-shadow: none;
+}
+.changelog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: -4px;
+}
+.version-tag {
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--primary-dark);
+    background: rgba(0, 193, 106, 0.15);
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+}
+.old-version .version-tag {
+    color: var(--text-muted);
+    background: rgba(0, 0, 0, 0.05);
+}
+.date-tag {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+.changelog-details {
+    list-style: none;
+}
+.changelog-details li {
+    font-size: 13.5px;
+    color: var(--text-main);
+    margin-bottom: 8px;
+    line-height: 1.4;
+    position: relative;
+    padding-left: 14px;
+}
+.changelog-details li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+    font-weight: bold;
+}
+/* ==========================================================================
+   FAQ ACCORDION
+   ========================================================================== */
+.faq-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    margin-bottom: 5px;
+}
+.faq-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+.faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    background: transparent;
+    border: none;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-main);
+    text-align: left;
+    cursor: pointer;
+    transition: color 0.3s var(--ease);
+}
+.faq-question:hover {
+    color: var(--primary);
+}
+.faq-icon {
+    font-size: 14px;
+    color: var(--text-muted);
+    transition: transform 0.4s var(--spring), color 0.3s;
+}
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s var(--ease), opacity 0.4s var(--ease);
+    opacity: 0;
+}
+.faq-answer-inner {
+    padding: 0 0 15px 0;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* Trạng thái Active khi được nhấn mở */
+.faq-item.active .faq-question {
+    color: var(--primary);
+}
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+    color: var(--primary);
+}
+.faq-item.active .faq-answer {
+    max-height: 200px; /* Chiều cao đủ lớn để chứa nội dung */
+    opacity: 1;
+}
+
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <div id="scroll-progress"></div>
+
+        <div class="top-bar gs-reveal" id="topBar">
+    <img src="https://f.2fools.app/tgs/Menharachan02_by_stickermakerxbot/banana_c88a77b6.gif" alt="Logo" class="top-bar-logo">
+    <span class="top-bar-title">TikTok Vibe IPA</span>
+    <span class="new-update-tag">New Update</span>
+</div>
+
+        <header class="header gs-reveal">
+            <span class="subtitle">FREE DOWNLOAD</span>
+            <h1>TikTok Vibe IPA</h1>
+        </header>
+
+        <div class="segment-container gs-reveal">
+            <div class="segment-indicator" id="segment-indicator"></div>
+            <div class="segment-btn active" data-target="tab-ipa">IPA</div>
+            <div class="segment-btn" data-target="tab-info">Information</div>
+        </div>
+
+        <div class="tab-view active" id="tab-ipa">
+            
+            <div class="glass-card latest-version gs-reveal tilt-card">
+                <div class="icon-box"><i class="fa-brands fa-tiktok"></i></div>
+                <div class="latest-info">
+                    <h3>TikTok Vibe IPA</h3>
+                    <p>Latest Version • 428,4 MB</p>
+                    <p>iOS 15+</p>
+                </div>
+                <div class="badge-free">FREE</div>
+            </div>
+
+            <div class="glass-card gs-reveal tilt-card" style="text-align: center; padding: 30px 20px;">
+                <i class="fa-solid fa-cloud-arrow-down" style="font-size: 40px; color: var(--primary); margin-bottom: 15px;"></i>
+                <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 10px;">Download TikTok Vibe</h2>
+                <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 25px;">Latest version • No Ads • Premium Features • Free Forever</p>
+                <button class="main-download-btn trigger-download magnetic-btn" style="margin-bottom: 0;">
+                    <i class="fa-solid fa-download"></i> Download Now
+                </button>
+            </div>
+
+            <h3 class="preview-section-title gs-reveal" id="preview-anchor">Preview <i class="fa-solid fa-chevron-right" style="font-size: 14px; color: var(--text-muted);"></i></h3>
+            <div class="screenshots-container gs-reveal">
+                <div class="screenshot-wrapper">
+                    <div class="screenshot" data-img="https://i.imgur.com/BILR4BC.png"></div>
+                </div>
+                <div class="screenshot-wrapper">
+                    <div class="screenshot" data-img="https://i.imgur.com/coLWn64.png"></div>
+                </div>
+                <div class="screenshot-wrapper">
+                    <div class="screenshot" data-img="https://i.imgur.com/vxmmmiQ.png"></div>
+                </div>
+<div class="screenshot-wrapper">
+                    <div class="screenshot" data-img="https://i.imgur.com/aUlEbRH.png"></div>
+                </div>
+<div class="screenshot-wrapper">
+                    <div class="screenshot" data-img="https://i.imgur.com/rDWFfvS.png"></div>
+                </div>
+<div class="screenshot-wrapper">
+                    <div class="screenshot" data-img="https://i.imgur.com/dtVf2Ub.png"></div>
+                </div>
+<div class="screenshot-wrapper">
+                    <div class="screenshot" data-img="https://i.imgur.com/69MrGTv.png"></div>
+                </div>
+<div class="screenshot-wrapper">
+                    <div class="screenshot" data-img="https://i.imgur.com/zJjf1yM.png"></div>
+                </div>
+<div class="screenshot-wrapper">
+                    <div class="screenshot" data-img="https://i.imgur.com/DaJeAwn.png"></div>
+                </div>
+            </div>
+
+            <div class="glass-card gs-reveal" style="margin-top: 10px;">
+                <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 15px;">Features</h3>
+                <div class="feature-item"><i class="fa-solid fa-circle-check"></i> Premium Unlocked</div>
+                <div class="feature-item"><i class="fa-solid fa-circle-check"></i> No Ads</div>
+                <div class="feature-item"><i class="fa-solid fa-circle-check"></i> Fast Download</div>
+                <div class="feature-item"><i class="fa-solid fa-circle-check"></i> Safe & Secure</div>
+<div class="feature-item"><i class="fa-solid fa-circle-check"></i> Download stickers</div>
+<div class="feature-item"><i class="fa-solid fa-circle-check"></i> Display the username</div>
+<div class="feature-item"><i class="fa-solid fa-circle-check"></i> Enable liquid glass</div>
+                <div class="feature-item"><i class="fa-solid fa-circle-check"></i> IPA Verified</div>
+            </div>
+
+        </div>
+
+        <div class="tab-view" id="tab-info">
+            
+            <!-- NEW: MUA CHỨNG CHỈ CÁ NHÂN CARD -->
+            <div class="glass-card premium-card gs-reveal tilt-card">
+                <h3 style="font-size: 19px; font-weight: 800; margin-bottom: 15px; background: linear-gradient(135deg, #00c16a, #0088cc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-award" style="color: #00c16a; -webkit-text-fill-color: initial;"></i> MUA CHỨNG CHỈ CÁ NHÂN
+                </h3>
+                <div class="feature-item"><i class="fa-solid fa-shield-halved"></i> Ổn định trọn vẹn 1 năm</div>
+                <div class="feature-item"><i class="fa-solid fa-circle-check"></i> Không lo bị thu hồi</div>
+                <div class="feature-item"><i class="fa-solid fa-fingerprint"></i> UDID riêng biệt</div>
+                <div class="feature-item" style="border: none; padding-bottom: 5px;"><i class="fa-solid fa-cubes"></i> Cài thoải mái, bền vững</div>
+                
+                <a href="https://t.me/younj_icloud" target="_blank" class="contact-buy-btn magnetic-btn">
+                    <i class="fa-brands fa-telegram"></i> Liên hệ mua ngay
+                </a>
+            </div>
+
+            <div class="glass-card gs-reveal tilt-card">
+                <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 15px;"><i class="fa-solid fa-circle-info" style="color: var(--primary);"></i> App Information</h3>
+                <ul class="info-list">
+                    <li><span>Name</span> <span>TikTok Vibe IPA</span></li>
+                    <li><span>Version</span> <span>Latest (v34.1.0)</span></li>
+                    <li><span>Size</span> <span>428,4 MB</span></li>
+                    <li><span>Developer</span> <span>Younj OS</span></li>
+                    <li><span>Compatibility</span> <span>iOS 15.0+</span></li>
+                </ul>
+            </div>
+
+            <div class="glass-card gs-reveal tilt-card">
+                <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 15px;"><i class="fa-solid fa-screwdriver-wrench" style="color: var(--primary);"></i> Supported Installers</h3>
+                <div class="feature-item"><i class="fa-solid fa-check"></i> TrollStore Ready</div>
+                <div class="feature-item"><i class="fa-solid fa-check"></i> AltStore / SideStore</div>
+                <div class="feature-item"><i class="fa-solid fa-check"></i> Feather Ready</div>
+                <div class="feature-item" style="border:none;"><i class="fa-solid fa-check"></i> ESign Ready</div>
+            </div>
+
+            <div class="glass-card counter-box gs-reveal tilt-card">
+                <i class="fa-solid fa-chart-line"></i>
+                <div class="count-number" id="dl-counter">84</div>
+                <div class="count-label">Total Downloads</div>
+            </div>
+<!-- CHANGELOG CARD -->
+<div class="glass-card gs-reveal tilt-card">
+    <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 20px;">
+        <i class="fa-solid fa-clock-rotate-left" style="color: var(--primary);"></i> Nhật ký cập nhật
+    </h3>
+    
+    <div class="changelog-container">
+        <!-- Phiên bản mới nhất -->
+        <div class="changelog-item">
+            <div class="changelog-header">
+                <span class="version-tag">v34.1.0</span>
+                <span class="date-tag">Hôm nay</span>
+            </div>
+            <ul class="changelog-details">
+                <li>Cập nhật lõi TikTok lên phiên bản mới nhất.</li>
+                <li>Mở khóa thêm tính năng tải video chất lượng 4K (không logo).</li>
+                <li>Khắc phục lỗi crash khi mở bình luận trên iOS 16.</li>
+            </ul>
+        </div>
+
+        <!-- Phiên bản cũ hơn -->
+        <div class="changelog-item old-version">
+            <div class="changelog-header">
+                <span class="version-tag">v33.8.5</span>
+                <span class="date-tag">Tháng trước</span>
+            </div>
+            <ul class="changelog-details">
+                <li>Thêm nút ẩn các quảng cáo được tài trợ (Sponsored Ads).</li>
+                <li>Hỗ trợ xem video bị giới hạn vùng (Region Bypass).</li>
+            </ul>
+        </div>
+
+        <!-- Phiên bản cũ nhất -->
+        <div class="changelog-item old-version">
+            <div class="changelog-header">
+                <span class="version-tag">v33.0.0</span>
+                <span class="date-tag">3 tháng trước</span>
+            </div>
+            <ul class="changelog-details">
+                <li>Ra mắt TikTok Vibe dành riêng cho TrollStore.</li>
+                <li>Kích hoạt tính năng Liquid Glass.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- FAQ CARD -->
+<div class="glass-card gs-reveal tilt-card">
+    <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 10px;">
+        <i class="fa-regular fa-circle-question" style="color: var(--primary);"></i> Câu hỏi thường gặp
+    </h3>
+    
+    <div class="faq-item">
+        <button class="faq-question">
+            Lỗi "Ứng dụng chưa được xác minh"? 
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+        </button>
+        <div class="faq-answer">
+            <div class="faq-answer-inner">
+                Bạn cần vào <b>Cài đặt > Cài đặt chung > Quản lý VPN & Thiết bị</b>, chọn chứng chỉ của nhà phát triển và nhấn <b>Tin cậy (Trust)</b> để có thể mở ứng dụng.
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-question">
+            Tải về bị định dạng .zip thì làm sao? 
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+        </button>
+        <div class="faq-answer">
+            <div class="faq-answer-inner">
+                Đây là lỗi do trình duyệt Safari tự động nén file. Bạn chỉ cần vào ứng dụng Tệp (Files), đổi tên đuôi <code>.zip</code> thành <code>.ipa</code> là có thể cài đặt bình thường.
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-question">
+            App có bị thu hồi (revoke) không? 
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+        </button>
+        <div class="faq-answer">
+            <div class="faq-answer-inner">
+                Nếu bạn cài qua TrollStore, app sẽ <b>không bao giờ</b> bị thu hồi. Nếu cài qua chứng chỉ miễn phí (ESign, Scarlet), app có thể bị thu hồi ngẫu nhiên. Khuyến nghị mua chứng chỉ cá nhân để dùng ổn định 1 năm.
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="glass-card gs-reveal">
+                <div class="dev-header">
+    <div class="dev-avatar" style="background: transparent;">
+        <img src="https://i.imgur.com/t3rRjNx.jpeg" 
+             alt="Younj OS Avatar" 
+             style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+    </div>
+    <div>
+        <h3 style="font-size: 18px; font-weight: 800;">Younj OS</h3>
+        <p style="font-size: 13px; color: var(--text-muted); font-weight: 500;">iOS Developer & Designer</p>
+    </div>
+</div>
+                <div class="social-buttons">
+                    <a href="https://t.me/younj_icloud" class="social-btn"><i class="fa-brands fa-telegram" style="color: #0088cc;"></i> Telegram</a>
+                    <a href="#" class="social-btn"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+                    <a href="https://www.facebook.com/share/1J3SQ7J7GV/?mibextid=wwXIfr" class="social-btn"><i class="fa-brands fa-facebook" style="color: #1877f2;"></i> Facebook</a>
+                    <a href="https://github.com/ienyeyo" class="social-btn"><i class="fa-brands fa-github"></i> GitHub</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="bottom-action-area">
+            <button class="main-download-btn trigger-download magnetic-btn" id="sticky-dl-btn">
+                <i class="fa-solid fa-download"></i> <span id="btn-text">Download IPA</span>
+            </button>
+            
+            <nav class="tab-bar">
+                <div class="tab-item" data-action="home"><i class="fa-solid fa-house"></i>Home</div>
+                <div class="tab-item active" data-action="ipa"><i class="fa-solid fa-layer-group"></i>IPA</div>
+                <div class="tab-item" data-action="preview"><i class="fa-solid fa-compass"></i>Preview</div>
+                <div class="tab-item" data-action="about"><i class="fa-solid fa-circle-user"></i>About</div>
+            </nav>
+        </div>
+
+        <div class="popup-overlay" id="download-popup">
+            <div class="popup-card">
+                <div class="popup-circle">
+                    <svg viewBox="0 0 80 80">
+                        <circle class="circle-bg" cx="40" cy="40" r="35"></circle>
+                        <circle class="circle-progress" id="progress-circle" cx="40" cy="40" r="35"></circle>
+                    </svg>
+                    <div class="countdown-text" id="countdown-num">5</div>
+                </div>
+                <h3 class="popup-title">Preparing Download...</h3>
+                <p class="popup-desc">Please wait while we fetch the file</p>
+                <div class="popup-details">
+                    <ul class="info-list">
+                        <li><span>File:</span> <span style="font-size: 12px;">TikTok Vibe IPA</span></li>
+                        <li><span>Size:</span> <span>428,4 MB</span></li>
+                        <li><span>Date:</span> <span id="current-date"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="fullscreen-modal">
+            <button id="close-fullscreen"><i class="fa-solid fa-xmark"></i></button>
+            <img id="fullscreen-img" src="" alt="Screenshot Fullscreen">
+        </div>
+
+        <!-- ABOUT / DONATE BOTTOM SHEET -->
+        <div class="bottom-sheet-overlay" id="about-sheet-overlay">
+            <div class="bottom-sheet">
+                <div class="sheet-drag-handle"></div>
+                <div style="text-align: center; margin-bottom: 25px;">
+                    <div class="dev-avatar" style="width: 80px; height: 80px; margin: 0 auto 15px; background: transparent;">
+    <img src="https://i.imgur.com/t3rRjNx.jpeg" 
+         alt="Younj OS Avatar" 
+         style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+</div>
+                    <h2 style="font-size: 24px; font-weight: 900; margin-bottom: 5px;">Younj OS</h2>
+                    <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5; padding: 0 15px;">Đam mê modding và mang đến những phiên bản ứng dụng iOS mượt mà, tiện ích, hoàn toàn miễn phí cho cộng đồng.
+Tải ngay tại:younj.io.vn</p>
+                </div>
+
+                <div class="donate-box">
+                    <h4 style="font-size: 16px; font-weight: 800; color: var(--primary-dark); margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-heart" style="color: #ff2d55;"></i> Ủng hộ / Donate
+                    </h4>
+                    <div class="bank-info-row">
+                        <span>Ngân hàng:</span>
+                        <span>Woori bank (Woori)</span>
+                    </div>
+                    <div class="bank-info-row">
+                        <span>Chủ tài khoản:</span>
+                        <span>KHONG MANH YEN</span>
+                    </div>
+                    
+                    <div class="account-number-box">
+                        <span class="acc-number" id="bank-acc-number">2215032009</span>
+                        <button class="copy-btn" id="btn-copy-bank">
+                            <i class="fa-regular fa-copy"></i> Copy
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="fx-layer"></div>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  }
+</script>
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            document.getElementById('current-date').innerText = new Date().toLocaleDateString('vi-VN');
+            
+            const counterEl = document.getElementById('dl-counter');
+            let currentDownloads = parseInt(localStorage.getItem('younj_total_dl')) || 84;
+            counterEl.innerText = currentDownloads.toLocaleString();
+
+            const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true, touchMultiplier: 2 });
+
+            lenis.on('scroll', ScrollTrigger.update);
+            lenis.on('scroll', (e) => {
+                const scrollProgress = e.animatedScroll / (document.documentElement.scrollHeight - window.innerHeight);
+                gsap.set('#scroll-progress', { scaleX: scrollProgress });
+            });
+            gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+            gsap.ticker.lagSmoothing(0);
+// --- Ẩn/hiện topbar khi cuộn ---
+const topBar = document.getElementById('topBar');
+let lastScroll = 0;
+const hideThreshold = 100;
+
+lenis.on('scroll', ({ scroll, direction }) => {
+    if (scroll > hideThreshold) {
+        if (scroll > lastScroll && direction === 1) {
+            topBar.classList.add('hidden');
+        } else if (scroll < lastScroll && direction === -1) {
+            topBar.classList.remove('hidden');
+        }
+    } else {
+        topBar.classList.remove('hidden');
+    }
+    lastScroll = scroll;
+});
+            const revealElements = document.querySelectorAll('.gs-reveal');
+            revealElements.forEach((el, i) => {
+                gsap.fromTo(el, { opacity: 0, y: 30, scale: 0.98 }, { scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none reverse" }, opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "back.out(1.7)", delay: i * 0.05 });
+            });
+
+            VanillaTilt.init(document.querySelectorAll(".tilt-card"), { max: 5, speed: 400, glare: true, "max-glare": 0.2, scale: 1.02 });
+
+            const segments = document.querySelectorAll('.segment-btn');
+            const indicator = document.getElementById('segment-indicator');
+            const views = document.querySelectorAll('.tab-view');
+            
+            function switchMainTab(targetId, index) {
+                segments.forEach(b => b.classList.remove('active'));
+                segments[index].classList.add('active');
+                indicator.style.transform = `translateX(${index * 100}%)`;
+                views.forEach(v => {
+                    v.classList.remove('active');
+                    if(v.id === targetId) v.classList.add('active');
+                });
+                setTimeout(() => ScrollTrigger.refresh(), 100);
+            }
+
+            segments.forEach((btn, index) => {
+                btn.addEventListener('click', () => {
+                    switchMainTab(btn.getAttribute('data-target'), index);
+                });
+            });
+
+            const magneticBtns = document.querySelectorAll('.magnetic-btn');
+            magneticBtns.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    gsap.to(btn, { x: x * 0.2, y: y * 0.2, duration: 0.3, ease: "power2.out" });
+                });
+                btn.addEventListener('mouseleave', () => { gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" }); });
+            });
+
+            /* FULLSCREEN SCREENSHOT LOGIC */
+            const previewScreens = document.querySelectorAll('.screenshot');
+            const fsModal = document.getElementById('fullscreen-modal');
+            const fsImg = document.getElementById('fullscreen-img');
+            const fsClose = document.getElementById('close-fullscreen');
+
+            previewScreens.forEach(screen => {
+                screen.addEventListener('click', () => {
+                    const imgSrc = screen.getAttribute('data-img');
+                    fsImg.src = imgSrc;
+                    gsap.to(fsModal, { opacity: 1, pointerEvents: 'auto', duration: 0.3 });
+                    gsap.fromTo(fsImg, { scale: 0.7, y: 100 }, { scale: 1, y: 0, duration: 0.6, ease: "back.out(1.5)" });
+                });
+            });
+
+            function closeFullscreen() {
+                gsap.to(fsModal, { opacity: 0, pointerEvents: 'none', duration: 0.3 });
+                gsap.to(fsImg, { scale: 0.8, y: 50, duration: 0.3 });
+            }
+            fsClose.addEventListener('click', closeFullscreen);
+            fsModal.addEventListener('click', (e) => { if(e.target === fsModal) closeFullscreen(); });
+
+
+            /* SPAM DOWNLOAD LOGIC */
+            const SPAM_KEY = 'younj_last_dl_time';
+            const COOLDOWN = 45;
+            const dlButtons = document.querySelectorAll('.trigger-download');
+            const stickyBtnText = document.getElementById('btn-text');
+            const popup = document.getElementById('download-popup');
+            const countText = document.getElementById('countdown-num');
+            const progCircle = document.getElementById('progress-circle');
+            let spamTimer = null;
+
+            function checkSpamState() {
+                const lastDl = localStorage.getItem(SPAM_KEY);
+                if (lastDl) {
+                    const diff = Math.floor((Date.now() - parseInt(lastDl)) / 1000);
+                    if (diff < COOLDOWN) { lockButtons(COOLDOWN - diff); }
+                }
+            }
+
+            function lockButtons(secondsLeft) {
+                dlButtons.forEach(btn => {
+                    btn.classList.add('btn-locked'); btn.disabled = true;
+                    if(btn.id === 'sticky-dl-btn') { stickyBtnText.innerText = `Please wait ${secondsLeft}s`; } 
+                    else { btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Wait ${secondsLeft}s`; }
+                });
+                if (spamTimer) clearInterval(spamTimer);
+                spamTimer = setInterval(() => {
+                    secondsLeft--;
+                    if (secondsLeft <= 0) { clearInterval(spamTimer); unlockButtons(); } 
+                    else {
+                        dlButtons.forEach(btn => {
+                            if(btn.id === 'sticky-dl-btn') { stickyBtnText.innerText = `Please wait ${secondsLeft}s`; } 
+                            else { btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Wait ${secondsLeft}s`; }
+                        });
+                    }
+                }, 1000);
+            }
+
+            function unlockButtons() {
+                dlButtons.forEach(btn => {
+                    btn.classList.remove('btn-locked'); btn.disabled = false;
+                    if(btn.id === 'sticky-dl-btn') { stickyBtnText.innerText = `Download IPA`; } 
+                    else { btn.innerHTML = `<i class="fa-solid fa-download"></i> Download Now`; }
+                });
+                localStorage.removeItem(SPAM_KEY);
+            }
+
+            checkSpamState();
+
+            dlButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (btn.classList.contains('btn-locked')) return;
+                    popup.classList.add('active');
+                    let counter = 5; countText.innerText = counter;
+                    progCircle.style.transition = 'none'; progCircle.style.strokeDashoffset = '0';
+                    setTimeout(() => { progCircle.style.transition = 'stroke-dashoffset 1s linear'; }, 50);
+                    const dlInterval = setInterval(() => {
+                        counter--; countText.innerText = counter;
+                        const offset = 220 - (220 * (counter / 5)); progCircle.style.strokeDashoffset = offset;
+                        if (counter <= 0) { clearInterval(dlInterval); executeDownload(); }
+                    }, 1000);
+                });
+            });
+
+            function executeDownload() {
+                popup.classList.remove('active');
+                localStorage.setItem(SPAM_KEY, Date.now().toString());
+                currentDownloads++; localStorage.setItem('younj_total_dl', currentDownloads);
+                counterEl.innerText = currentDownloads.toLocaleString();
+                lockButtons(COOLDOWN);
+                window.location.href = "https://drive.google.com/uc?export=download&id=1QSf1e0GodSsVnf7JsIEDrYmkTVsO-XGO";
+            }
+
+            /* BOTTOM TAB BAR NAVIGATION & ABOUT SHEET */
+            const tabItems = document.querySelectorAll('.tab-item');
+            const aboutOverlay = document.getElementById('about-sheet-overlay');
+            const copyBankBtn = document.getElementById('btn-copy-bank');
+            const accNumberText = document.getElementById('bank-acc-number').innerText;
+
+            tabItems.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabItems.forEach(t => t.classList.remove('active')); 
+                    tab.classList.add('active');
+                    gsap.fromTo(tab.querySelector('i'), { scale: 0.8 }, { scale: 1.15, duration: 0.4, ease: "elastic.out(1, 0.3)" });
+
+                    const action = tab.getAttribute('data-action');
+                    
+                    if(action === 'home') {
+                        lenis.scrollTo(0, {duration: 1.2});
+                    } 
+                    else if(action === 'ipa') {
+                        switchMainTab('tab-ipa', 0);
+                        lenis.scrollTo(0, {duration: 1});
+                    } 
+                    else if(action === 'preview') {
+                        switchMainTab('tab-ipa', 0);
+                        lenis.scrollTo('#preview-anchor', {offset: -100, duration: 1.2});
+                    } 
+                    else if(action === 'about') {
+                        aboutOverlay.classList.add('active');
+                    }
+                });
+            });
+
+            aboutOverlay.addEventListener('click', (e) => {
+                if(e.target === aboutOverlay) {
+                    aboutOverlay.classList.remove('active');
+                    tabItems.forEach(t => t.classList.remove('active'));
+                    document.querySelector('.tab-item[data-action="ipa"]').classList.add('active');
+                }
+            });
+
+            copyBankBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(accNumberText).then(() => {
+                    copyBankBtn.classList.add('copied');
+                    copyBankBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied';
+                    setTimeout(() => {
+                        copyBankBtn.classList.remove('copied');
+                        copyBankBtn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy';
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Lỗi Copy: ', err);
+                });
+            });
+
+            /* FX EFFECTS */
+            const fxLayer = document.getElementById('fx-layer');
+            document.addEventListener('click', (e) => {
+                if(e.target.closest('button') || e.target.closest('.segment-btn') || e.target.closest('.screenshot') || e.target.closest('.tab-item') || e.target.closest('.contact-buy-btn') || e.target.closest('.social-btn')) return;
+                const heart = document.createElement('i');
+                heart.className = 'fa-solid fa-heart heart';
+                heart.style.left = `${e.clientX - 10}px`; heart.style.top = `${e.clientY - 10}px`;
+                fxLayer.appendChild(heart);
+                setTimeout(() => { heart.remove(); }, 1000);
+            });
+
+            function createSnowflake() {
+                const flake = document.createElement('div'); flake.className = 'snowflake';
+                const size = Math.random() * 4 + 2; const startX = Math.random() * window.innerWidth; const duration = Math.random() * 3 + 4;
+                flake.style.width = `${size}px`; flake.style.height = `${size}px`; flake.style.left = `${startX}px`;
+                flake.style.animation = `snowfall ${duration}s linear forwards`;
+                fxLayer.appendChild(flake);
+                setTimeout(() => { flake.remove(); }, duration * 1000);
+            }
+            setInterval(createSnowflake, 400);
+
+        });
+/* FAQ ACCORDION LOGIC */
+const faqItems = document.querySelectorAll('.faq-item');
+
+faqItems.forEach(item => {
+    const questionBtn = item.querySelector('.faq-question');
+    questionBtn.addEventListener('click', () => {
+        // Đóng các thẻ đang mở khác (nếu bạn chỉ muốn mở 1 thẻ tại 1 thời điểm)
+        faqItems.forEach(otherItem => {
+            if (otherItem !== item && otherItem.classList.contains('active')) {
+                otherItem.classList.remove('active');
+            }
+        });
+        
+        // Bật/tắt thẻ hiện tại
+        item.classList.toggle('active');
+        
+        // Refresh lại ScrollTrigger vì chiều cao trang bị thay đổi
+        setTimeout(() => {
+            ScrollTrigger.refresh();
+        }, 400); // 400ms tương ứng với thời gian transition trong CSS
+    });
+});
+
+    </script>
+</body>
+</html>
